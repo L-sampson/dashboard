@@ -40,7 +40,7 @@
   <div class="widget-container">
     <div class="widget-left">
       <app-table [displayedColumns]="workshopColumns" [dataSource]="workshopDataSource"
-        filterPlaceHolder="Search Workshops"></app-table>
+        filterPlaceHolder="Search Workshops" buttonPlaceHolder="Workshop"></app-table>
     </div>
     <div class="widget-right">
       <div class="impact-card" *ngFor="let metric of impactWidget">

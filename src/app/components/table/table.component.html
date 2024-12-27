@@ -1,7 +1,10 @@
-<mat-form-field>
-    <mat-label>{{ filterPlaceHolder }}</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. name" #input>
-</mat-form-field>
+<div class="search-btn-header">
+    <mat-form-field>
+        <mat-label>{{ filterPlaceHolder }}</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. name" #input>
+    </mat-form-field>
+    <button mat-raised-button class="button"><mat-icon>add</mat-icon> Add {{ buttonPlaceHolder }}</button>
+</div>
 
 <table mat-table [dataSource]="dataSource">
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
@@ -13,7 +16,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" [attr.colspan]="displayedColumns.length">No data matching the filter "{{ input.value }}"</td>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">No data matching the filter "{{ input.value }}"
+        </td>
     </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
