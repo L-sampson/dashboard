@@ -1,0 +1,71 @@
+<div class="dashboard-header">
+  <h1>Dashboard</h1>
+</div>
+
+<div class="widgets">
+  <div class="widget-header">
+    <h2>Stats</h2>
+  </div>
+  <div class="widget-container">
+    <mat-card appearance="outlined" *ngFor="let item of topWidgets" [ngStyle]="{'background-color': item.color}">
+      <div class="icon">
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </div>
+      <div class="value">
+        <div class="top">{{ item.stats }}</div>
+        <div class="bottom">{{ item.header }}</div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="widgets">
+  <div class="widget-header">
+    <h2>Charts</h2>
+  </div>
+  <div class="widget-container">
+    <div class="widget-left">
+      <app-line-chart></app-line-chart>
+    </div>
+    <div class="widget-right">
+      pie
+    </div>
+  </div>
+</div>
+
+<div class="widgets">
+  <div class="widget-header">
+    <h2>Workshop Info</h2>
+  </div>
+  <div class="widget-container">
+    <div class="widget-left">
+      <app-table [displayedColumns]="workshopColumns" [dataSource]="workshopDataSource"
+        filterPlaceHolder="Search Workshops"></app-table>
+    </div>
+    <div class="widget-right">
+      <div class="impact-card" *ngFor="let metric of impactWidget">
+        <div class="icon">
+          <mat-icon>{{ metric.icon }}</mat-icon> Key Metrics
+        </div>
+        <div class="key-metrics">
+          <div class="metric">
+            <span class="label">Workshops:</span>
+            <span class="metric-number">{{metric.workshops}}</span>
+          </div>
+          <div class="metric">
+            <span class="label">Participants:</span>
+            <span class="metric-number">{{metric.participants}}</span>
+          </div>
+          <div class="metric">
+            <span class="label">Devices:</span>
+            <span class="metric-number">{{metric.devices}}</span>
+          </div>
+          <div class="metric">
+            <span class="label">Hours:</span>
+            <span class="metric-number">{{metric.hours}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
