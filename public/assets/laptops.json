@@ -1,0 +1,19 @@
+[
+    {
+      "brand": "Dell",
+      "model": "XPS 13",
+      "serial": "12345XYZ",
+      "asset_tag": "LAP001",
+      "status": "Inventory",
+      "processor": "Intel Core i7"
+    },
+    {
+      "brand": "Apple",
+      "model": "MacBook Air",
+      "serial": "67890ABC",
+      "asset_tag": "LAP002",
+      "status": "Imaged",
+      "processor": "Apple M1"
+    }
+  ]
+  

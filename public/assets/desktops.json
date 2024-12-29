@@ -1,0 +1,21 @@
+[
+    {
+      "brand": "HP",
+      "model": "Pavilion",
+      "serial": "33445MNO",
+      "asset_tag": "DES001",
+      "status": "Inventory",
+      "processor": "Intel Core i5",
+      "hard_drive": "1TB HDD"
+    },
+    {
+      "brand": "Dell",
+      "model": "OptiPlex",
+      "serial": "66778PQR",
+      "asset_tag": "DES002",
+      "status": "Imaged",
+      "processor": "Intel Core i7",
+      "hard_drive": "512GB SSD"
+    }
+  ]
+  

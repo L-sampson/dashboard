@@ -2,7 +2,7 @@
     <h1>Inventory</h1>
     <div class="btns">
         <button mat-fab extended>
-            <mat-icon>library_add</mat-icon> 
+            <mat-icon>library_add</mat-icon>
             Bulk Import
         </button>
         <button mat-fab extended>
@@ -14,18 +14,83 @@
 
 <div class="inventory-stats">
     <div class="inventory-tables">
-        <div class="inven-table-header">
-            <h3>Inventory Table by Type: </h3>
-            <div class="btns">
-                <button mat-raised-button>Laptop</button>
-                <button mat-raised-button>Desktop</button>
-                <button mat-raised-button>Misc.</button>
-            </div>
-        </div>
-        <hr>
+        <app-table filterPlaceHolder="Search Workshops" buttonPlaceHolder="Workshop" [links]="links"></app-table>
     </div>
     <div class="recent-activity">
-        <h3>Recent Activity</h3>
-    </div>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Recent Activity</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="activity-list">
+              <!-- Laptop Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-06 14:30 </span>
+                  <span class="activity-detail">Laptop <strong>Dell XPS 13</strong> was moved to <em>Inventory</em> status.</span>
+                </div>
+              </li>
+              <!-- Desktop Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-05 09:20 </span>
+                  <span class="activity-detail">Desktop <strong>HP Pavilion</strong> was updated with <em>512GB SSD</em>.</span>
+                </div>
+              </li>
+              <!-- Misc Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-04 17:45 </span>
+                  <span class="activity-detail"><strong>Logitech Mouse</strong> (Qty: 50) was added to the inventory.</span>
+                </div>
+              </li>
+              <!-- Laptop Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-03 11:10 </span>
+                  <span class="activity-detail">Laptop <strong>Apple MacBook Air</strong> was imaged with <em>macOS Big Sur</em>.</span>
+                </div>
+              </li>
+              <!-- Desktop Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-02 13:50 </span>
+                  <span class="activity-detail">Desktop <strong>Dell OptiPlex</strong> was moved to <em>Distributed</em> status.</span>
+                </div>
+              </li>
+              <!-- Misc Activity -->
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-01 08:30 </span>
+                  <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
+                </div>
+              </li>
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-01 08:30 </span>
+                  <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
+                </div>
+              </li>
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-01 08:30 </span>
+                  <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
+                </div>
+              </li>
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-01 08:30 </span>
+                  <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
+                </div>
+              </li>
+              <li>
+                <div class="activity-item">
+                  <span class="activity-time">2024-12-01 08:30 </span>
+                  <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
+                </div>
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </div>      
 </div>
-

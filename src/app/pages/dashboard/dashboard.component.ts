@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LineChartComponent } from "../../charts/line-chart/line-chart.component";
 import { TableComponent } from '../../components/table/table.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { TabLink } from '../../interfaces/tab-link';
 
 export type TopWidgets = {
   header: string,
@@ -35,13 +36,17 @@ const WORKSHOP_DATA: Workshop[] = [
 ];
 
 export interface ImpactWidget {
-  header: string, 
+  header: string,
   icon: string,
   workshops: number,
   participants: number,
   devices: number,
   hours: number
 }
+
+const PARTICIPANTS_DATA = [
+  { name: 'John Doe', age: 25, workshop: 'Savannah Church', role: 'Participant' }, { name: 'Jane Smith', age: 28, workshop: 'Atlanta Community Center', role: 'Participant' }
+];
 
 @Component({
   selector: 'app-dashboard',
@@ -51,18 +56,26 @@ export interface ImpactWidget {
 })
 
 export class DashboardComponent {
-  topWidgets = [ 
+  topWidgets = [
     { header: 'Items Received', icon: 'shelves', stats: 4000, color: '#9C27B0' },
     { header: 'Workshops', icon: 'cast_for_education', stats: 20, color: '#FF9800' },
     { header: 'Activated Laptops', icon: 'devices', stats: 40, color: '#2196F3' },
-    { header: 'Items Recycled', icon: 'recycling', stats: 5000, color: '#4CAF50' } 
-];
+    { header: 'Items Recycled', icon: 'recycling', stats: 5000, color: '#4CAF50' }
+  ];
 
-workshopColumns: string[] = ['date', 'name', 'location', 'type', 'devices'];
-workshopDataSource = new MatTableDataSource(WORKSHOP_DATA);
+  workshopColumns: string[] = ['date', 'name', 'location', 'type', 'devices'];
+  workshopDataSource = new MatTableDataSource(WORKSHOP_DATA);
 
-impactWidget: ImpactWidget[] = [
-  {header: 'Key Metrics', icon: 'insights', workshops: 100, participants: 500, devices: 500, hours: 3000}
-]
+  participantColumns: string[] = ['name', 'age', 'workshop', 'role'];
+  participantDataSource = new MatTableDataSource(PARTICIPANTS_DATA);
+
+  links: TabLink[] = [
+    { name: 'Upcoming Workshops', displayedColumns: this.workshopColumns, dataSource: this.workshopDataSource, filterPlaceHolder: 'Workshops', buttonPlaceHolder: 'Workshop' },
+    { name: 'Participants', displayedColumns: this.participantColumns, dataSource: this.participantDataSource, filterPlaceHolder: 'Participants', buttonPlaceHolder: 'Partiticpants' }
+  ]
+
+  impactWidget: ImpactWidget[] = [
+    { header: 'Key Metrics', icon: 'insights', workshops: 100, participants: 500, devices: 500, hours: 3000 }
+  ]
 
 }
