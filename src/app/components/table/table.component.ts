@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TabLink } from '../../interfaces/tab-link';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog'; 
 
 @Component({
   selector: 'app-table',
@@ -18,11 +20,11 @@ import { TabLink } from '../../interfaces/tab-link';
 export class TableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  @Input() filterPlaceHolder: string = 'Filter';
-  @Input() buttonPlaceHolder: string = 'Item';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() links: TabLink[] = [];
   activeLink!: TabLink
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     console.log(this.displayedColumns);
@@ -50,5 +52,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     if (this.activeLink && this.activeLink.dataSource) {
       this.activeLink.dataSource.filter = filterValue.trim().toLocaleLowerCase();
     }
+  }
+
+  openDialog() {
+    this.dialog.open(DialogComponent, {
+      width: '890px',
+      height: 'auto',
+    });
   }
 }

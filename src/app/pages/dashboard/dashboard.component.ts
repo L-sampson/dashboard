@@ -70,8 +70,16 @@ export class DashboardComponent {
   participantDataSource = new MatTableDataSource(PARTICIPANTS_DATA);
 
   links: TabLink[] = [
-    { name: 'Upcoming Workshops', displayedColumns: this.workshopColumns, dataSource: this.workshopDataSource, filterPlaceHolder: 'Workshops', buttonPlaceHolder: 'Workshop' },
-    { name: 'Participants', displayedColumns: this.participantColumns, dataSource: this.participantDataSource, filterPlaceHolder: 'Participants', buttonPlaceHolder: 'Partiticpants' }
+    { 
+      name: 'Upcoming Workshops',
+      displayedColumns: this.workshopColumns, 
+      dataSource: this.workshopDataSource 
+    },
+    { 
+      name: 'Participants', 
+      displayedColumns: this.participantColumns, 
+      dataSource: this.participantDataSource 
+    }
   ]
 
   impactWidget: ImpactWidget[] = [

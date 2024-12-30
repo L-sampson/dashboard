@@ -11,11 +11,11 @@
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
   <div class="search-btn-header">
     <mat-form-field appearance="fill" class="mat-mdc-form-field">
-      <mat-label>Search {{ activeLink.filterPlaceHolder }}</mat-label>
+      <mat-label>Search {{ activeLink.name }}</mat-label>
       <mat-icon matPrefix>search</mat-icon>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. name" #input>
     </mat-form-field>
-    <button mat-raised-button class="button"><mat-icon>add</mat-icon> Add {{ activeLink.buttonPlaceHolder }}</button>
+    <button mat-raised-button (click)="openDialog()" class="button"><mat-icon>add</mat-icon> Add {{ activeLink.name }}</button>
   </div>
 
   <table mat-table [dataSource]="activeLink.dataSource">

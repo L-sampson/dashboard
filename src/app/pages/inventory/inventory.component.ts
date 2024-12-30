@@ -38,9 +38,9 @@ export class InventoryComponent implements OnInit {
   miscItemColumns: string[] = ['item', 'brand', 'quantity'];
 
   links: TabLink[] = [
-    { name: 'Laptops', displayedColumns: this.laptopsColumns, dataSource: this.laptopDataSource, filterPlaceHolder: 'Laptops', buttonPlaceHolder: 'Laptop' },
-    { name: 'Desktops', displayedColumns: this.desktopsColumns, dataSource: this.desktopDataSource, filterPlaceHolder: 'Desktops', buttonPlaceHolder: 'Desktop' },
-    { name: 'Misc Item', displayedColumns: this.miscItemColumns, dataSource: this.miscDataSource, filterPlaceHolder: 'Misc Item', buttonPlaceHolder: 'Misc Item' }
+    { name: 'Laptops', displayedColumns: this.laptopsColumns, dataSource: this.laptopDataSource },
+    { name: 'Desktops', displayedColumns: this.desktopsColumns, dataSource: this.desktopDataSource },
+    { name: 'Misc Item', displayedColumns: this.miscItemColumns, dataSource: this.miscDataSource }
   ]
 
   fetchLaptops() {

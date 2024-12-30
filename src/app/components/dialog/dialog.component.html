@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Add Item</h2>
+<mat-dialog-content>
+    <div class="input-fields">
+        <mat-form-field appearance="outline">
+            <mat-label>Brand</mat-label>
+            <input 
+            matInput 
+            placeholder="Dell" 
+            required/>
+         </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Model</mat-label>
+            <input 
+            matInput 
+            placeholder="Optiplex" 
+            required/>
+         </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Serial</mat-label>
+            <input 
+            matInput 
+            placeholder="12345XY2" 
+            required/>
+         </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Asset Tag</mat-label>
+            <input 
+            matInput 
+            placeholder="IEDU-2024-001" 
+            required/>
+         </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select>
+                <mat-option>Inventory</mat-option>
+                <mat-option>Imaged</mat-option>
+                <mat-option>Activated</mat-option>
+                <mat-option>Distributed</mat-option>
+                <mat-option>Recycled</mat-option>
+            </mat-select>
+         </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Processor</mat-label>
+            <input 
+            matInput 
+            placeholder="Dell" 
+            required/>
+         </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>
