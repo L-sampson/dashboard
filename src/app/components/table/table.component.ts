@@ -27,9 +27,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    console.log(this.displayedColumns);
-    console.log(this.dataSource);
-    console.log(this.links)
     if (this.links.length > 0) {
       this.activeLink = this.links[0];
     }
@@ -37,9 +34,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.activeLink && this.activeLink.dataSource) {
-      console.log(this.paginator);
       this.activeLink.dataSource.paginator = this.paginator;
-
     }
   }
   
@@ -54,10 +49,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openDialog() {
+  openDialog(ItemType: string) {
     this.dialog.open(DialogComponent, {
       width: '890px',
       height: 'auto',
+      data: {
+        itemType: ItemType,
+        fields: this.activeLink.displayedColumns
+      }
     });
   }
 }

@@ -15,7 +15,7 @@
       <mat-icon matPrefix>search</mat-icon>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. name" #input>
     </mat-form-field>
-    <button mat-raised-button (click)="openDialog()" class="button"><mat-icon>add</mat-icon> Add {{ activeLink.name }}</button>
+    <button mat-raised-button (click)="openDialog(activeLink.name)" class="button"><mat-icon>add</mat-icon> Add {{ activeLink.name }}</button>
   </div>
 
   <table mat-table [dataSource]="activeLink.dataSource">
