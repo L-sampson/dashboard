@@ -1,0 +1,79 @@
+[
+    {
+        "date": "January 18, 2025",
+        "name": "'Savannah Church'",
+        "location": "'Savannah, GA'",
+        "type": "'ADL'",
+        "devices": 26
+    },
+    {
+        "date": "February 5, 2025",
+        "name": "Atlanta Community Center",
+        "location": "Atlanta, GA",
+        "type": "STEM",
+        "devices": 15
+    },
+    {
+        "date": "March 10, 2025",
+        "name": "Macon High School",
+        "location": "Macon, GA",
+        "type": "Coding",
+        "devices": 30
+    },
+    {
+        "date": "April 12, 2025",
+        "name": "Augusta Library",
+        "location": "Augusta, GA",
+        "type": "Robotics",
+        "devices": 20
+    },
+    {
+        "date": "May 22, 2025",
+        "name": "Columbus Tech",
+        "location": "Columbus, GA",
+        "type": "ADL",
+        "devices": 18
+    },
+    {
+        "date": "June 15, 2025",
+        "name": "Athens University",
+        "location": "Athens, GA",
+        "type": "STEM",
+        "devices": 25
+    },
+    {
+        "date": "July 8, 2025",
+        "name": "Valdosta State College",
+        "location": "Valdosta, GA",
+        "type": "Coding",
+        "devices": 22
+    },
+    {
+        "date": "August 18, 2025",
+        "name": "Albany Middle School",
+        "location": "Albany, GA",
+        "type": "Robotics",
+        "devices": 27
+    },
+    {
+        "date": "September 21, 2025",
+        "name": "Warner Robins Center",
+        "location": "Warner Robins, GA",
+        "type": "ADL",
+        "devices": 19
+    },
+    {
+        "date": "October 30, 2025",
+        "name": "Dublin Public Library",
+        "location": "Dublin, GA",
+        "type": "STEM",
+        "devices": 23
+    },
+    {
+        "date": "November 12, 2025",
+        "name": "Thomasville Community Hall",
+        "location": "Thomasville, GA",
+        "type": "Coding",
+        "devices": 17
+    }
+]

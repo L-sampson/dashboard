@@ -1,4 +1,4 @@
-enum Status {
+export enum Status {
     Inventory,
     Imaged,
     Activated,
@@ -28,4 +28,24 @@ export interface Misc {
     item: string;
     brand: string;
     quantity: number;
+}
+
+enum WorkshopType {
+    ADL,
+    FLW,
+    DSFY
+}
+
+export interface Workshop {
+    date: Date;
+    name: string;
+    location: string;
+    type: WorkshopType;
+    devices: number;
+}
+
+export interface Participants {
+    name: string;
+    age: number;
+    workshop: string;
 }

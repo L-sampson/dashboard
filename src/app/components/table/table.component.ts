@@ -50,7 +50,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(ItemType: string) {
-    this.dialog.open(DialogComponent, {
+    const dialogRef =this.dialog.open(DialogComponent, {
       width: '890px',
       height: 'auto',
       data: {
@@ -58,5 +58,11 @@ export class TableComponent implements OnInit, AfterViewInit {
         fields: this.activeLink.displayedColumns
       }
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        console.log("form data: ", result)
+      }
+    })
   }
 }

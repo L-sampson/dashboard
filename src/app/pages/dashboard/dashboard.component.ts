@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { LineChartComponent } from "../../charts/line-chart/line-chart.component";
 import { TableComponent } from '../../components/table/table.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { TabLink } from '../../interfaces/tab-link';
+import { Workshop, Participants } from '../../interfaces/models';
+import { WorkshopService } from '../../services/workshop.service';
 
 export type TopWidgets = {
   header: string,
@@ -13,27 +15,6 @@ export type TopWidgets = {
   stats: number
 }
 
-export interface Workshop {
-  date: string,
-  name: string,
-  location: string,
-  type: string,
-  devices: number
-}
-
-const WORKSHOP_DATA: Workshop[] = [
-  { date: 'January 18, 2025', name: 'Savannah Church', location: 'Savannah, GA', type: 'ADL', devices: 26 },
-  { date: 'February 5, 2025', name: 'Atlanta Community Center', location: 'Atlanta, GA', type: 'STEM', devices: 15 },
-  { date: 'March 10, 2025', name: 'Macon High School', location: 'Macon, GA', type: 'Coding', devices: 30 },
-  { date: 'April 12, 2025', name: 'Augusta Library', location: 'Augusta, GA', type: 'Robotics', devices: 20 },
-  { date: 'May 22, 2025', name: 'Columbus Tech', location: 'Columbus, GA', type: 'ADL', devices: 18 },
-  { date: 'June 15, 2025', name: 'Athens University', location: 'Athens, GA', type: 'STEM', devices: 25 },
-  { date: 'July 8, 2025', name: 'Valdosta State College', location: 'Valdosta, GA', type: 'Coding', devices: 22 },
-  { date: 'August 18, 2025', name: 'Albany Middle School', location: 'Albany, GA', type: 'Robotics', devices: 27 },
-  { date: 'September 21, 2025', name: 'Warner Robins Center', location: 'Warner Robins, GA', type: 'ADL', devices: 19 },
-  { date: 'October 30, 2025', name: 'Dublin Public Library', location: 'Dublin, GA', type: 'STEM', devices: 23 },
-  { date: 'November 12, 2025', name: 'Thomasville Community Hall', location: 'Thomasville, GA', type: 'Coding', devices: 17 }
-];
 
 export interface ImpactWidget {
   header: string,
@@ -44,9 +25,6 @@ export interface ImpactWidget {
   hours: number
 }
 
-const PARTICIPANTS_DATA = [
-  { name: 'John Doe', age: 25, workshop: 'Savannah Church', role: 'Participant' }, { name: 'Jane Smith', age: 28, workshop: 'Atlanta Community Center', role: 'Participant' }
-];
 
 @Component({
   selector: 'app-dashboard',
@@ -55,7 +33,21 @@ const PARTICIPANTS_DATA = [
   styleUrl: './dashboard.component.scss'
 })
 
-export class DashboardComponent {
+
+export class DashboardComponent implements OnInit {
+  workshops: Workshop[] = [];
+  participants: Participants[] = [];
+
+  workshopDataSource = new MatTableDataSource<Workshop>();
+  participantDataSource = new MatTableDataSource<Participants>();
+
+  constructor(private workshopService: WorkshopService) {}
+
+  ngOnInit(): void {
+    this.fetchWorkshops();
+    this.fetchParticipants();
+  }
+
   topWidgets = [
     { header: 'Items Received', icon: 'shelves', stats: 4000, color: '#9C27B0' },
     { header: 'Workshops', icon: 'cast_for_education', stats: 20, color: '#FF9800' },
@@ -64,10 +56,7 @@ export class DashboardComponent {
   ];
 
   workshopColumns: string[] = ['date', 'name', 'location', 'type', 'devices'];
-  workshopDataSource = new MatTableDataSource(WORKSHOP_DATA);
-
-  participantColumns: string[] = ['name', 'age', 'workshop', 'role'];
-  participantDataSource = new MatTableDataSource(PARTICIPANTS_DATA);
+  participantColumns: string[] = ['name', 'age', 'workshop'];
 
   links: TabLink[] = [
     { 
@@ -81,6 +70,20 @@ export class DashboardComponent {
       dataSource: this.participantDataSource 
     }
   ]
+
+  fetchWorkshops() {
+    this.workshopService.getWorkshops().subscribe((data:Workshop[]) => {
+      this.workshops = data;
+      this.workshopDataSource.data = data;
+    });
+  }
+
+  fetchParticipants() {
+    this.workshopService.getParticipants().subscribe((data:Participants[]) => {
+      this.participants = data;
+      this.participantDataSource.data = data;
+    })
+  }
 
   impactWidget: ImpactWidget[] = [
     { header: 'Key Metrics', icon: 'insights', workshops: 100, participants: 500, devices: 500, hours: 3000 }
