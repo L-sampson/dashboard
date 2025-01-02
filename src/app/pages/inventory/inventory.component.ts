@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../components/table/table.component';
@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { TabLink } from '../../interfaces/tab-link';
 import { Laptop, Desktop, Misc } from '../../interfaces/models';
 import { InventoryService } from '../../services/inventory.service';
+import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
+import { MatDialog } from '@angular/material/dialog'; 
 
 
 
@@ -26,6 +28,7 @@ export class InventoryComponent implements OnInit {
   miscDataSource = new MatTableDataSource<Misc>();
 
   constructor(private inventoryService: InventoryService) { }
+  readonly dialog = inject(MatDialog)
 
   ngOnInit(): void {
     this.fetchDesktops();
@@ -60,5 +63,12 @@ export class InventoryComponent implements OnInit {
 
   fetchMiscItems(): void { 
     this.inventoryService.getMiscItems().subscribe((data: Misc[]) => { this.miscItems = data; this.miscDataSource.data = data; }); 
+  }
+
+  openFileDialog() {
+    this.dialog.open(FileUploadDialogComponent, {
+      width: '500px',
+      height: '600px'
+    })
   }
 }

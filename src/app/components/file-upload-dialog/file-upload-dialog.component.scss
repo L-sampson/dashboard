@@ -1,0 +1,43 @@
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.drag-drop-zone {
+    border: 2px dashed black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 50%;
+
+    .zone-icon {
+        width: 75px;
+        height: 75px;
+        font-size: 75px;
+    }
+
+    >p {
+        font-size: 16px;
+    }
+
+    >button {
+        width: 60%;
+    }
+}
+
+
+.file-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}

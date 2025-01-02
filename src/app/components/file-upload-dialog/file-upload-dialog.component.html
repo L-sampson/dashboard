@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Upload Files</h2>
+<mat-dialog-content>
+   <div class="drag-drop-zone">
+    <mat-icon class="zone-icon">upload_file</mat-icon>
+    <p>Drag and drop <br/>
+        file here to upload. <br>
+        <strong>(CSV, XLS, XLSX)</strong> </p>
+    <button mat-raised-button>Browse Files</button>
+   </div>
+   
+   <div *ngIf="files.size > 0">
+    <h3>File Details:</h3>
+    <div *ngFor="let file of files" class="file-section">
+      <ul class="file-info">
+        <li>File Name: {{file.name}}</li>
+        <li>Size: {{file.size}} bytes</li>
+        <li><mat-icon>close</mat-icon></li>
+      </ul>
+    </div>
+  </div>
+    
+  <button mat-raised-button (click)="fileInput.click()">
+    <mat-icon>upload</mat-icon>Upload File
+  </button>
+  <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelect($event)">
+
+  
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Upload</button>
+</mat-dialog-actions>
