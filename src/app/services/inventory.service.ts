@@ -22,4 +22,16 @@ export class InventoryService {
   getMiscItems(): Observable<Misc[]> {
     return this.http.get<Misc[]>(`${environment.apiUrl}/misc`);
   }
+
+  addLaptop(laptop: Laptop): Observable<Laptop> {
+    return this.http.post<Laptop>('assets/laptops.json', laptop)
+  }
+
+  addDesktop(desktop: Desktop): Observable<Desktop> {
+    return this.http.post<Desktop>('assets/desktops.json', desktop)
+  }
+
+  addMiscItem(misc: Misc): Observable<Misc> {
+    return this.http.post<Misc>('assets/misc.json', misc)
+  }
 }

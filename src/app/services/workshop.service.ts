@@ -17,4 +17,12 @@ export class WorkshopService {
   getParticipants(): Observable<Participants[]> {
     return this.http.get<Participants[]>('assets/participants.json');
   }
+
+  addWorkshop(workshop: Workshop): Observable<Workshop> {
+    return this.http.post<Workshop>('assets/workshops.json', workshop); 
+  }
+
+  addParticipant(participant: Participants): Observable<Workshop> {
+    return this.http.post<Workshop>('assets/workshops.json', participant); 
+  }
 }

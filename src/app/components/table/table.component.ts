@@ -10,6 +10,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TabLink } from '../../interfaces/tab-link';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog'; 
+import { InventoryService } from '../../services/inventory.service';
+import { Desktop, Laptop, Misc } from '../../interfaces/models';
 
 @Component({
   selector: 'app-table',
@@ -24,7 +26,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() links: TabLink[] = [];
   activeLink!: TabLink
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog,
+    private inventoryService: InventoryService
+  ) {}
 
   ngOnInit(): void {
     if (this.links.length > 0) {
@@ -49,20 +53,50 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openDialog(ItemType: string) {
+  openDialog(itemType: string) {
     const dialogRef =this.dialog.open(DialogComponent, {
       width: '890px',
       height: 'auto',
       data: {
-        itemType: ItemType,
+        itemType: itemType,
         fields: this.activeLink.displayedColumns
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
+        console.log(itemType)
         console.log("form data: ", result)
+        this.addItem(itemType, result)
       }
     })
+  }
+
+  private addItem(itemType: string, item: any) {
+    switch(itemType) {
+      case 'Desktops':
+        this.inventoryService.addDesktop(item).subscribe((desktop: Desktop) => {
+          console.log(desktop); 
+          this.activeLink.dataSource.data.push(item); 
+          this.activeLink.dataSource._updateChangeSubscription();
+        })
+        break;
+      case 'Laptops':
+        this.inventoryService.addLaptop(item).subscribe((laptop: Laptop) => {
+          console.log(laptop)
+          this.activeLink.dataSource.data.push(item);
+          this.activeLink.dataSource._updateChangeSubscription();
+        })
+        break;
+      case 'Misc Item':
+        this.inventoryService.addMiscItem(item).subscribe((misc: Misc) => {
+          console.log(misc);
+          this.activeLink.dataSource.data.push(item);
+          this.activeLink.dataSource._updateChangeSubscription();
+        })
+        break;
+      default:
+        console.log('Unknown item type: ', itemType)
+    }
   }
 }
