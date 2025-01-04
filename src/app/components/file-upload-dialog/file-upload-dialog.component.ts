@@ -3,16 +3,23 @@ import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FileMetaData } from '../../interfaces/utils';
+
 
 @Component({
   selector: 'app-file-upload-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, CommonModule],
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, FormsModule,CommonModule],
   templateUrl: './file-upload-dialog.component.html',
-  styleUrl: './file-upload-dialog.component.scss'
+  styleUrl: './file-upload-dialog.component.scss',
 })
 export class FileUploadDialogComponent {
-  files: Set<File> = new Set();
+  files: Map<string, FileMetaData> = new Map()
+  readonly startDate = new Date();
 
   checkFileType(file: File): boolean {
     const allowedTypes = [
@@ -43,13 +50,82 @@ export class FileUploadDialogComponent {
     }
 }
 
+private generateFileKey(file: File) {
+  return `${file.name}`
+}
+
 private addFile(file: File) {
   if(!this.checkFileType(file)) {
       alert(`Incorrect File Type for file name: ${file.name}. Acceptable file extentsions are the following:\nCSV, XLX, and XLSX\nThis file will not be uploaded, please retry`);
       throw new Error(`File type not allowed: ${file.name}`)
+  } 
+  const key = this.generateFileKey(file);
+  if(this.files.has(key)) {
+    alert(`File: ${file.name} already exist`)
+    return
   }
-  console.log('Correct File type', file.type);
-  this.files.add(file)
+
+  const metdata: FileMetaData = {
+    file,
+    companyName: '',
+    donationDate: null,
+  };
+
+  this.files.set(key, metdata)
+  console.log('File added', metdata)
+  console.log(this.FileEntries)
+}
+
+removeFile(file: File) {
+  const key = this.generateFileKey(file);
+  if(this.files.delete(key)) {
+    console.log('File removed:', file.name);
+  } else {
+    console.log('FIle not found')
+  }
+}
+
+get FileEntries() {
+  return Array.from(this.files.entries())
+}
+
+setFileSize(fileSize: number) {
+  var count = 0;
+  while(fileSize > 1024) {
+    fileSize /= 1024
+    count++;
+  }
+
+  var units = ['Bytes', 'KB', 'MB', 'TB'];
+  if(count >= units.length) {
+    throw new Error('File Size is too large');
+  }
+
+  fileSize = Math.ceil(fileSize)
+  return `${fileSize} ${units[count]}`
+}
+
+uploadFiles() {
+  const form = new FormData();
+  this.files.forEach(file => {
+    if(!file.companyName || !file.donationDate) {
+      alert('Please complete all required fields for each file.');
+      return;
+    }
+    form.append('compnayName', file.companyName);
+    form.append('donationDate', file.donationDate.toISOString());
+    form.append('file', file.file);
+  })
+
+  console.log('Form Data Contents:');
+  for (const [key, value] of form.entries()) {
+    console.log(`${key}:`, value);
+  }
+}
+
+// Track by FormNumber. Use this method to track froms in DOM.
+trackByFn(index: number, item: any): any {
+  return item.id || index;
 }
 
 @HostListener('dragover', ['$event'])

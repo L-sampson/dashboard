@@ -1,11 +1,9 @@
 <h2 mat-dialog-title>Upload Files</h2>
 <mat-dialog-content>
-  <div
-    class="drag-drop-zone"
-    (drop)="onFileDrop($event)"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-  >
+  <div class="drag-drop-zone" 
+  (drop)="onFileDrop($event)" 
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)">
     <mat-icon class="zone-icon">upload_file</mat-icon>
     <p>
       Drag and drop <br />
@@ -19,29 +17,36 @@
     <div class="fixed-title">
       <h3>File Details:</h3>
     </div>
-    <div *ngFor="let file of files" class="file-section">
+    <div *ngFor="let file of FileEntries; index as i; trackBy: trackByFn" class="file-section">
       <ul class="file-info">
-        <li><b>File Name:</b> {{ file.name }}</li>
-        <li>Size: {{ file.size | number }} bytes</li>
+        <li><b>File Name:</b> {{ file[0] }}</li>
+        <li>Size: {{ setFileSize(file[1].file.size) }}</li>
         <li>
-          <button mat-icon-button (click)="files.delete(file)">
+          <button mat-icon-button (click)="files.delete(file[0])">
             <mat-icon class="close">remove</mat-icon>
           </button>
         </li>
       </ul>
+      <div class="file-form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <input matInput placeholder="Ex. Vestis" required [(ngModel)]="file[1].companyName" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Donation Date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="file[1].donationDate" />
+          <mat-hint>MM-DD-YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker" />
+          <mat-datepicker #picker startView="year" [startAt]="startDate" />
+        </mat-form-field>
+      </div>
     </div>
   </div>
 
-  <input
-    type="file"
-    #fileInput
-    style="display: none;"
-    multiple
-    (change)="onFileSelect($event)"
-  />
+  <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelect($event)" />
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close>Upload</button>
+  <button mat-button (click)="uploadFiles()" mat-dialog-close>Upload</button>
 </mat-dialog-actions>

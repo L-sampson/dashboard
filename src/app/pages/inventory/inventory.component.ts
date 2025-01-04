@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../components/table/table.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { TabLink } from '../../interfaces/tab-link';
+import { TabLink } from '../../interfaces/utils';
 import { Laptop, Desktop, Misc } from '../../interfaces/models';
 import { InventoryService } from '../../services/inventory.service';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';

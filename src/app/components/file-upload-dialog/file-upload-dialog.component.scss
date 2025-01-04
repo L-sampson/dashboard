@@ -72,3 +72,9 @@ mat-dialog-content {
         color: white;
     }
 }
+
+.file-form-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}

@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LineChartComponent } from "../../charts/line-chart/line-chart.component";
 import { TableComponent } from '../../components/table/table.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { TabLink } from '../../interfaces/tab-link';
+import { TabLink } from '../../interfaces/utils';
 import { Workshop, Participants } from '../../interfaces/models';
 import { WorkshopService } from '../../services/workshop.service';
 

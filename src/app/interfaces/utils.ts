@@ -5,3 +5,10 @@ export interface TabLink {
     displayedColumns: string[];
     dataSource: MatTableDataSource<any>;
 }
+
+
+export interface FileMetaData {
+    file: File;
+    companyName: string;
+    donationDate: Date | null;
+}

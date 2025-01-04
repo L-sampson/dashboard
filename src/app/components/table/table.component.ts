@@ -7,7 +7,7 @@ import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { TabLink } from '../../interfaces/tab-link';
+import { TabLink } from '../../interfaces/utils';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog'; 
 import { InventoryService } from '../../services/inventory.service';
