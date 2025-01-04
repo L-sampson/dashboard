@@ -22,7 +22,7 @@ export class WorkshopService {
     return this.http.post<Workshop>('assets/workshops.json', workshop); 
   }
 
-  addParticipant(participant: Participants): Observable<Workshop> {
-    return this.http.post<Workshop>('assets/workshops.json', participant); 
+  addParticipant(participant: Participants): Observable<Participants> {
+    return this.http.post<Participants>('assets/workshops.json', participant); 
   }
 }

@@ -11,6 +11,8 @@ import { TabLink } from '../../interfaces/tab-link';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog'; 
 import { InventoryService } from '../../services/inventory.service';
+import { WorkshopService } from '../../services/workshop.service';
+import { Workshop, Participants } from '../../interfaces/models';
 import { Desktop, Laptop, Misc } from '../../interfaces/models';
 
 @Component({
@@ -27,7 +29,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   activeLink!: TabLink
 
   constructor(private dialog: MatDialog,
-    private inventoryService: InventoryService
+    private inventoryService: InventoryService,
+    private workshopService: WorkshopService
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +94,20 @@ export class TableComponent implements OnInit, AfterViewInit {
       case 'Misc Item':
         this.inventoryService.addMiscItem(item).subscribe((misc: Misc) => {
           console.log(misc);
+          this.activeLink.dataSource.data.push(item);
+          this.activeLink.dataSource._updateChangeSubscription();
+        })
+        break;
+        case 'Workshops':
+        this.workshopService.addWorkshop(item).subscribe((workshop: Workshop) => {
+          console.log(workshop);
+          this.activeLink.dataSource.data.push(item);
+          this.activeLink.dataSource._updateChangeSubscription();
+        })
+        break;
+        case 'Participants':
+        this.workshopService.addParticipant(item).subscribe((participant: Participants) => {
+          console.log(participant);
           this.activeLink.dataSource.data.push(item);
           this.activeLink.dataSource._updateChangeSubscription();
         })

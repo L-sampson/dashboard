@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
 
   links: TabLink[] = [
     { 
-      name: 'Upcoming Workshops',
+      name: 'Workshops',
       displayedColumns: this.workshopColumns, 
       dataSource: this.workshopDataSource 
     },

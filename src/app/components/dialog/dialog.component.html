@@ -1,25 +1,53 @@
 <h2 mat-dialog-title>Add {{data.itemType}}</h2>
 <mat-dialog-content>
    <form [formGroup]="dynamicForm">
-   <div class="input-fields">
-      <div *ngFor="let field of data.fields">
-         <mat-form-field appearance="outline" *ngIf="field === 'status'; else otherFields">
-            <mat-label>{{field.toUpperCase()}}</mat-label>
-            <mat-select [formControlName]="field" >
-               <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
-            </mat-select>
-         </mat-form-field>
-         <ng-template #otherFields>
-            <mat-form-field appearance="outline">
-               <mat-label>{{field.toUpperCase()}}</mat-label>
-               <input matInput [formControlName]="field" required />
-            </mat-form-field>
-         </ng-template>
-      </div>
-   </div>
-</form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
+     <div class="input-fields">
+       <div *ngFor="let field of data.fields">
+         <ng-container [ngSwitch]="field">
+           <!-- Status Field -->
+           <mat-form-field *ngSwitchCase="'status'" appearance="outline">
+             <mat-label>{{ field.toUpperCase() }}</mat-label>
+             <mat-select [formControlName]="field">
+               <mat-option *ngFor="let status of statuses" [value]="status">
+                 {{ status }}
+               </mat-option>
+             </mat-select>
+           </mat-form-field>
+ 
+           <!-- Date Field -->
+           <mat-form-field *ngSwitchCase="'date'" appearance="outline">
+             <mat-label>{{ field.toUpperCase() }}</mat-label>
+             <input matInput [matDatepicker]="picker" [formControlName]="field" required />
+             <mat-hint>MM-DD-YYYY</mat-hint>
+             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+           </mat-form-field>
+ 
+           <!-- Devices & Age Field -->
+           <mat-form-field *ngSwitchCase="'devices'" appearance="outline">
+             <mat-label>{{ field.toUpperCase() }}</mat-label>
+             <input type="number" matInput [formControlName]="field" required />
+           </mat-form-field>
+ 
+           <mat-form-field *ngSwitchCase="'age'" appearance="outline">
+             <mat-label>{{ field.toUpperCase() }}</mat-label>
+             <input type="number" matInput [formControlName]="field" required />
+           </mat-form-field>
+ 
+           <!-- Generic Field -->
+           <mat-form-field *ngSwitchDefault appearance="outline">
+             <mat-label>{{ field.toUpperCase() }}</mat-label>
+             <input matInput [formControlName]="field" required />
+           </mat-form-field>
+         </ng-container>
+       </div>
+     </div>
+   </form>
+ </mat-dialog-content>
+ <mat-dialog-actions align="end">
    <button mat-button mat-dialog-close>Cancel</button>
-   <button mat-button [disabled]="!dynamicForm.valid" [mat-dialog-close]="dynamicForm.value">Save</button>
-</mat-dialog-actions>
+   <button mat-button [disabled]="!dynamicForm.valid" [mat-dialog-close]="dynamicForm.value">
+     Save
+   </button>
+ </mat-dialog-actions>
+ 
