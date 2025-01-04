@@ -12,7 +12,7 @@ mat-dialog-content {
     align-items: center;
     text-align: center;
     padding: 20px;
-    height: 50%;
+    height: 60%;
 
     .zone-icon {
         width: 75px;
@@ -25,9 +25,36 @@ mat-dialog-content {
     }
 
     >button {
-        width: 60%;
+        display: flex;
+        align-items: center;
+        width: 40%;
     }
 }
+
+.file-list-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+
+}
+
+.fixed-title { 
+    position: sticky; 
+    top: 0; 
+    background-color: blue;
+    border-radius: 10px;
+    z-index: 1; 
+    padding: 2px 0; 
+    >h3 {
+        padding-left: 10px;
+        color: white;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;
+  }
 
 
 .file-info {
@@ -40,4 +67,8 @@ mat-dialog-content {
     padding: 15px;
     border-radius: 5px;
     background-color: #f0f0f0;
+    .close {
+        background-color: red;
+        color: white;
+    }
 }

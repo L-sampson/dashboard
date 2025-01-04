@@ -1,31 +1,47 @@
 <h2 mat-dialog-title>Upload Files</h2>
 <mat-dialog-content>
-   <div class="drag-drop-zone">
+  <div
+    class="drag-drop-zone"
+    (drop)="onFileDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+  >
     <mat-icon class="zone-icon">upload_file</mat-icon>
-    <p>Drag and drop <br/>
-        file here to upload. <br>
-        <strong>(CSV, XLS, XLSX)</strong> </p>
-    <button mat-raised-button>Browse Files</button>
-   </div>
-   
-   <div *ngIf="files.size > 0">
-    <h3>File Details:</h3>
+    <p>
+      Drag and drop <br />
+      file here to upload. <br />
+      <strong>(CSV, XLS, XLSX)</strong>
+    </p>
+    <button mat-raised-button (click)="fileInput.click()"><mat-icon>find_in_page</mat-icon>Browse Files</button>
+  </div>
+
+  <div *ngIf="files.size > 0" class="file-list-container">
+    <div class="fixed-title">
+      <h3>File Details:</h3>
+    </div>
     <div *ngFor="let file of files" class="file-section">
       <ul class="file-info">
-        <li>File Name: {{file.name}}</li>
-        <li>Size: {{file.size}} bytes</li>
-        <li><mat-icon>close</mat-icon></li>
+        <li><b>File Name:</b> {{ file.name }}</li>
+        <li>Size: {{ file.size | number }} bytes</li>
+        <li>
+          <button mat-icon-button (click)="files.delete(file)">
+            <mat-icon class="close">remove</mat-icon>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
-    
-  <button mat-raised-button (click)="fileInput.click()">
-    <mat-icon>upload</mat-icon>Upload File
-  </button>
-  <input type="file" #fileInput style="display: none;" multiple (change)="onFileSelect($event)">
 
-  
+  <input
+    type="file"
+    #fileInput
+    style="display: none;"
+    multiple
+    (change)="onFileSelect($event)"
+  />
 </mat-dialog-content>
+
 <mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button mat-dialog-close>Upload</button>
 </mat-dialog-actions>
