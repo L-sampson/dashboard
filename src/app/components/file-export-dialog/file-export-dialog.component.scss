@@ -1,0 +1,74 @@
+hr {
+    margin: 2px;
+  }
+  
+  .file-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .download {
+    display: flex;
+    border: 2px solid black;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    .lead-icon {
+        font-size: 25px;
+    }
+  }
+  
+  .file-selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  button.add, button.download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #2962FF;
+    color: #fff;
+    padding: 8px 16px;
+  }
+  
+  .download-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space items with even gaps */
+    list-style-type: none;
+    padding: 10px; /* Optional: Add some inner spacing */
+    margin: 0; /* Remove any default margin */
+    gap: 15px; /* Add consistent spacing between items */
+  }
+  
+  
+  .download-btn {
+    padding: 0px; /* Adjust the top-bottom and left-right padding */
+    margin: 0; /* Remove any extra margins */
+    font-size: 14px; /* Optional: Adjust font size */
+    border-radius: 4px; /* Optional: Rounded corners */
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Space between icon and text */
+  }
+  
+  .close {
+    padding: 2px; /* Minimal padding for close button */
+    margin: 0; /* No margin */
+    background: transparent; /* Optional: Transparent background */
+    border: none; /* Remove border */
+    color: #888; /* Adjust icon color */
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #ff4d4d; /* Optional: Change color on hover */
+  }
+  
+  

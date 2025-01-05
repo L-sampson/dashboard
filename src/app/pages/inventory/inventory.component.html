@@ -1,11 +1,11 @@
 <div class="inventory-header">
     <h1>Inventory</h1>
     <div class="btns">
-        <button mat-fab extended (click)="openFileDialog()">
+        <button mat-fab extended (click)="openFileImportDialog()">
             <mat-icon>library_add</mat-icon>
             Bulk Import
         </button>
-        <button mat-fab extended>
+        <button mat-fab extended (click)="openFileExportDialog()">
             <mat-icon>file_download</mat-icon>
             Export Data
         </button>

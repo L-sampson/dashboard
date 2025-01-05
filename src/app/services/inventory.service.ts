@@ -34,4 +34,12 @@ export class InventoryService {
   addMiscItem(misc: Misc): Observable<Misc> {
     return this.http.post<Misc>('assets/misc.json', misc)
   }
+
+  bulkImport(form: FormData): Observable<FormData> {
+    return this.http.post<FormData>('assets/workshops.json', form)
+  }
+
+  fetchInventoryBlobs(): Observable<any> {
+    return this.http.get<any>('assets/blobs.json')
+  }
 }

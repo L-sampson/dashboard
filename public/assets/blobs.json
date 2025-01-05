@@ -1,0 +1,42 @@
+[
+    {
+        "name": "report_january.csv",
+        "size": 1024
+    },
+    {
+        "name": "summary_february.xls",
+        "size": 2048
+    },
+    {
+        "name": "data_march.xlsx",
+        "size": 3072
+    },
+    {
+        "name": "financials_april.csv",
+        "size": 4096
+    },
+    {
+        "name": "overview_may.xls",
+        "size": 5120
+    },
+    {
+        "name": "budget_june.xlsx",
+        "size": 6144
+    },
+    {
+        "name": "analysis_july.csv",
+        "size": 7168
+    },
+    {
+        "name": "stats_august.xls",
+        "size": 8192
+    },
+    {
+        "name": "results_september.xlsx",
+        "size": 9216
+    },
+    {
+        "name": "projections_october.csv",
+        "size": 10240
+    }
+]

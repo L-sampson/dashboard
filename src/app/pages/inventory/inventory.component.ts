@@ -8,7 +8,8 @@ import { TabLink } from '../../interfaces/utils';
 import { Laptop, Desktop, Misc } from '../../interfaces/models';
 import { InventoryService } from '../../services/inventory.service';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
+import { FileExportDialogComponent } from '../../components/file-export-dialog/file-export-dialog.component'; 
 
 
 
@@ -65,10 +66,17 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.getMiscItems().subscribe((data: Misc[]) => { this.miscItems = data; this.miscDataSource.data = data; }); 
   }
 
-  openFileDialog() {
+  openFileImportDialog() {
     this.dialog.open(FileUploadDialogComponent, {
       width: '500px',
       height: '600px'
+    })
+  }
+
+  openFileExportDialog() {
+    this.dialog.open(FileExportDialogComponent, {
+      width: '500px',
+      height: '500px'
     })
   }
 }

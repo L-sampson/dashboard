@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Export Files</h2>
+<hr>
+<mat-dialog-content>
+    <h3>Select the File(s) to download:</h3>
+    <div class="file-section">
+        <div class="file-selection">
+            <mat-form-field>
+                <mat-label>File Name</mat-label>
+                <input matInput placeholder="Ex. Vestis_Inventory" [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-hint>Search for Files to Download</mat-hint>
+                <mat-autocomplete #auto="matAutocomplete">
+                    @for (option of filteredOptions | async; track option) {
+                    <mat-option [value]="option">
+                        {{option}}
+                    </mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <button mat-raised-button class="add" (click)="addFile()"><mat-icon>add</mat-icon>Add File</button>
+        </div>
+        <div class="file-downloads">
+            <h4>Download File(s)</h4>
+            <div class="download" *ngFor="let file of selectedFiles">
+                <ul class="download-info">
+                    <li><b>Name:</b> {{file.name}}</li>
+                    <li><b>Size:</b> {{file.size}}</li>
+                    <li><button mat-raised-button
+                            class="download-btn"><mat-icon>cloud_download</mat-icon>Download</button></li>
+                    <li><button class="close" (click)="removeFile(file.name)"><mat-icon>delete</mat-icon></button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close>Upload Files</button>
+</mat-dialog-actions>
