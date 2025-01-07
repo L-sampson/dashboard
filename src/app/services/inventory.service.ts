@@ -36,7 +36,7 @@ export class InventoryService {
   }
 
   bulkImport(form: FormData): Observable<FormData> {
-    return this.http.post<FormData>('assets/workshops.json', form)
+    return this.http.post<FormData>(`${environment.apiUrl}/bulkinventory`, form)
   }
 
   fetchInventoryBlobs(): Observable<any> {

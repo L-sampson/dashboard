@@ -8,6 +8,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FileMetaData } from '../../interfaces/utils';
+import { InventoryService } from '../../services/inventory.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { FileMetaData } from '../../interfaces/utils';
   styleUrl: './file-upload-dialog.component.scss',
 })
 export class FileUploadDialogComponent {
+  constructor(private inventoryService: InventoryService) {}
   files: Map<string, FileMetaData> = new Map()
   readonly startDate = new Date();
 
@@ -108,20 +110,35 @@ setFileSize(fileSize: number) {
 uploadFiles() {
   const form = new FormData();
   this.files.forEach(file => {
-    if(!file.companyName || !file.donationDate) {
+    if (!file.companyName || !file.donationDate) {
       alert('Please complete all required fields for each file.');
       return;
     }
-    form.append('compnayName', file.companyName);
+
+    if (!file.file) {
+      alert('Missing File');
+      return;
+    }
+    form.append('companyName', file.companyName);
     form.append('donationDate', file.donationDate.toISOString());
-    form.append('file', file.file);
-  })
+    form.append('file', file.file);  // Keep appending with the same 'file' key for each file
+  });
 
   console.log('Form Data Contents:');
   for (const [key, value] of form.entries()) {
     console.log(`${key}:`, value);
   }
+
+  this.inventoryService.bulkImport(form).subscribe({
+    next: (response) => {
+      console.log('Upload successful:', response);
+    },
+    error: (err) => {
+      console.error('Upload failed:', err);
+    }
+  });
 }
+
 
 // Track by FormNumber. Use this method to track froms in DOM.
 trackByFn(index: number, item: any): any {
