@@ -52,6 +52,40 @@ export class FileUploadDialogComponent {
     }
 }
 
+onSampleFile() {
+  this.inventoryService.getInventorySampleBlob().subscribe({
+    next: (response) => {
+      console.log('Download successful:', response);
+
+      // Create a temporary <a> element
+      const link = document.createElement('a');
+      
+      // Create a URL for the Blob (response needs to be a Blob type here)
+      const fileURL = URL.createObjectURL(response);
+
+      // Set the download attribute with a filename
+      link.href = fileURL;
+      link.download = 'InventorySample.xlsx';  // Set your file name here
+
+      // Append the link to the body (this step is required to simulate a click)
+      document.body.appendChild(link);
+      
+      // Programmatically click the link to trigger the download
+      link.click();
+
+      // Clean up by removing the temporary link element
+      document.body.removeChild(link);
+
+      console.log('File is ready to be downloaded.');
+    },
+    error: (err) => {
+      console.error('Download failed:', err);
+    }
+  });
+}
+
+
+
 private generateFileKey(file: File) {
   return `${file.name}`
 }

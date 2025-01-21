@@ -42,4 +42,8 @@ export class InventoryService {
   fetchInventoryBlobs(): Observable<any> {
     return this.http.get<any>('assets/blobs.json')
   }
+
+  getInventorySampleBlob() {
+    return this.http.get(`${environment.apiUrl}/sampleinventory`, { responseType: 'blob' });
+  }
 }
