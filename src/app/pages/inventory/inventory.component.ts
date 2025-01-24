@@ -69,7 +69,7 @@ export class InventoryComponent implements OnInit {
   openFileImportDialog() {
     this.dialog.open(FileUploadDialogComponent, {
       width: '500px',
-      height: '600px'
+      maxHeight: '1000px'
     })
   }
 

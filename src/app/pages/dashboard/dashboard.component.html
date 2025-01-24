@@ -4,17 +4,19 @@
 
 <div class="widgets">
   <div class="widget-header">
-    <h2>Stats</h2>
+    <h2>Summary</h2>
   </div>
   <div class="widget-container">
-    <mat-card appearance="outlined" *ngFor="let item of topWidgets" [ngStyle]="{'background-color': item.color}">
-      <div class="icon">
-        <mat-icon>{{ item.icon }}</mat-icon>
-      </div>
-      <div class="value">
-        <div class="top">{{ item.stats }}</div>
-        <div class="bottom">{{ item.header }}</div>
-      </div>
+    <mat-card appearance="outlined" *ngFor="let item of topWidgets">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <mat-card-title>{{item.header}}</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>{{item.stats}} {{item.title}}</h2>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>

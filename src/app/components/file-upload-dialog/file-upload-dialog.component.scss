@@ -19,7 +19,7 @@ mat-dialog-content {
     align-items: center;
     text-align: center;
     padding: 20px;
-    height: 60%;
+    height: 40%;
 
     .zone-icon {
         width: 75px;
@@ -39,9 +39,11 @@ mat-dialog-content {
 }
 
 .file-list-container {
-    max-height: 200px;
+    max-height: 500px;
     overflow-y: auto;
+    overflow-x: auto;
     margin-top: 10px;
+    padding-right: 10px;
 
 }
 
@@ -60,8 +62,18 @@ mat-dialog-content {
 
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 10px;
   }
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }  
+
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
+}
 
 
 .file-info {

@@ -1,0 +1,78 @@
+.donors-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+button {
+    font-size: 16px;
+    padding: 5px 10px 0px;
+    margin: 0;
+}
+
+.widget-header {
+    text-align: center;
+}
+
+mat-card {
+    display: grid;
+    width: calc(25% - 20px);
+    height: 125px;
+    box-shadow: 5px 5px 5px #939393;
+    background-color: rgb(0, 63, 92);
+    color: whitesmoke;
+    margin-bottom: 20px;
+}
+
+mat-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+mat-card-title-group {
+    mat-icon {
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+    mat-card-title {
+        font-size: 32px;
+    }
+    align-items: center;
+}
+
+.widget-container { 
+    display: flex; 
+    justify-content: space-between; 
+    overflow-x: auto; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    padding-right: 10px;
+}
+
+
+.donor-table-activity {
+    border: 3px solid rgb(0, 63, 92);
+    display: flex;
+    gap: 10px;
+    height: calc(67% - 150px);
+    justify-content: space-between;
+    padding-right: 5px;
+    .donor-table {
+        border: 3px solid red;
+        height: 100%;
+        width: calc(75% - 20px);
+    }
+    .donor-activity {
+        border: 3px solid purple;
+        width: calc(25% - 20px);
+    }
+}

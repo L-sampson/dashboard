@@ -8,12 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TabLink } from '../../interfaces/utils';
 import { Workshop, Participants } from '../../interfaces/models';
 import { WorkshopService } from '../../services/workshop.service';
-
-export type TopWidgets = {
-  header: string,
-  icon: string,
-  stats: number
-}
+import { TopWidgets } from '../../interfaces/widgets';
 
 
 export interface ImpactWidget {
@@ -48,11 +43,11 @@ export class DashboardComponent implements OnInit {
     this.fetchParticipants();
   }
 
-  topWidgets = [
-    { header: 'Items Received', icon: 'shelves', stats: 4000, color: '#9C27B0' },
-    { header: 'Workshops', icon: 'cast_for_education', stats: 20, color: '#FF9800' },
-    { header: 'Activated Laptops', icon: 'devices', stats: 40, color: '#2196F3' },
-    { header: 'Items Recycled', icon: 'recycling', stats: 5000, color: '#4CAF50' }
+  topWidgets: TopWidgets[] = [
+    { header: 'Items Received', icon: 'shelves', stats: 4000, title: 'Items Received'},
+    { header: 'Workshops', icon: 'cast_for_education', stats: 20, title: 'Workshops' },
+    { header: 'Activated Laptops', icon: 'devices', stats: 40, title: 'Activated Laptops' },
+    { header: 'Items Recycled', icon: 'recycling', stats: 5000, title: 'Items Recycled' }
   ];
 
   workshopColumns: string[] = ['date', 'name', 'location', 'type', 'devices'];

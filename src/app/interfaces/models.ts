@@ -3,8 +3,8 @@ export enum Status {
     Imaged,
     Activated,
     Distributed,
-    Recycled 
- }
+    Recycled
+}
 
 export interface Models {
     brand: string;
@@ -19,9 +19,9 @@ export interface Laptop extends Models {
 }
 
 
-export interface Desktop extends Models{
+export interface Desktop extends Models {
     processor: string;
-    hard_drive:string;
+    hard_drive: string;
 }
 
 export interface Misc {
@@ -48,4 +48,13 @@ export interface Participants {
     name: string;
     age: number;
     workshop: string;
+}
+
+export interface Donors {
+    names: string[],
+    role: string,
+    organization: string,
+    abbreviation: string,
+    phone: string,
+    email: string
 }

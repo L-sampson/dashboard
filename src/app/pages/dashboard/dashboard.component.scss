@@ -1,14 +1,8 @@
 .widgets {
-    border: 5px solid black;
-    box-shadow: 5px 5px 5px #939393;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
 
-}
-
-.widget-header {
-    margin-top: -2vh;
-    margin-bottom: -1vh;
-    text-decoration: underline;
 }
 
 .widget-container { 
@@ -20,42 +14,26 @@
     // margin-top: 10px;
 } 
 
-mat-card { 
-    width: calc(25% - 20px); /* Distribute cards equally */
-    height: 175px;
-    background-color: blue;
-    color: #fff;
-    border-radius: 5px;
-    margin: 10px;
+mat-card {
+    display: grid;
+    width: calc(25% - 20px);
+    height: 125px;
     box-shadow: 5px 5px 5px #939393;
-    display: flex;
+    background-color: rgb(0, 63, 92);
+    color: whitesmoke;
+}
+
+mat-card-title-group {
+    mat-icon {
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+    mat-card-title {
+        font-size: 32px;
+    }
     align-items: center;
-    padding: 20px;
-    flex-direction: column;
-    transition: all;
-}
-
-mat-icon {
-    width: 100px;
-    height: 100px;
-    font-size: 50px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.value {
-    text-align: center;
-    width: 100%; /* Use 100% for responsive width */
-    margin-top: -20px;
-}
-
-.value .top {
-    margin-top: -30px;
-    font-size: 30px;
-}
-
-.value .bottom {
-    font-size: 20px;
 }
 
 .widget-left {

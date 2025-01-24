@@ -25,11 +25,12 @@ export class CustomSidenavComponent {
 
   menuItems = signal<MenuItems[]>([
     { icon: 'dashboard', label: 'Dashboard', route: '/dashboard' },
-    { icon: 'inventory', label: 'Inventory', route: 'inventory' },
-    { icon: 'location_city', label: 'Workshops', route: 'workshops' },
-    { icon: 'support_agent', label: 'Requests', route: 'request'},
-    { icon: 'summarize', label: 'Reports', route: 'reports'},
-    { icon: 'logout', label: 'Logout', route: 'logout'}
+    {icon: 'volunteer_activism', label: 'Donors', route: '/donors'},
+    { icon: 'inventory', label: 'Inventory', route: '/inventory' },
+    { icon: 'location_city', label: 'Workshops', route: '/workshops' },
+    { icon: 'support_agent', label: 'Requests', route: '/request'},
+    { icon: 'summarize', label: 'Reports', route: '/reports'},
+    { icon: 'logout', label: 'Logout', route: '/logout'}
   ]);
 
   profilePicSize = computed(() => this.sidenavCollapsed() ? '32' : '100');
