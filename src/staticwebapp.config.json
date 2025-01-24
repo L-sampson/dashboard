@@ -2,8 +2,13 @@
     "routes": [
       {
         "route": "/*",
-        "rewrite": "/index.html"
+        "serve": "index.html",
+        "statusCode": 200
       }
-    ]
+    ],
+    "navigationFallback": {
+      "rewrite": "index.html",
+      "statusCode": 200
+    }
   }
   
