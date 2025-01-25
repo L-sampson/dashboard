@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
 
   workshopDataSource = new MatTableDataSource<Workshop>();
   participantDataSource = new MatTableDataSource<Participants>();
+  tableTitle = "Workshops"
 
   constructor(private workshopService: WorkshopService) {}
 

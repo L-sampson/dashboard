@@ -13,9 +13,6 @@
 </div>
 
 <div class="widgets">
-  <div class="widget-header">
-    <h2>Donors Summary</h2>
-  </div>
   <div class="widget-container">
     <mat-card appearance="outlined" *ngFor="let item of topWidgets">
       <mat-card-header>
@@ -25,7 +22,7 @@
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
-        <h2>{{item.stats}} {{item.title}}</h2>
+        <p>{{item.stats}} {{item.title}}</p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -33,7 +30,7 @@
 
 <div class="donor-table-activity">
     <div class="donor-table">
-        table
+        <app-table [links]="links" [tableTitle]="tableTitle"></app-table>
     </div>
     <div class="donor-activity">
         activity

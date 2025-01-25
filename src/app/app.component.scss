@@ -23,3 +23,7 @@ mat-sidenav-content {
 mat-sidenav, mat-sidenav-content {
     transition: all 500ms ease-in-out;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+  }

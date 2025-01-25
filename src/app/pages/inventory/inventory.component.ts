@@ -23,6 +23,7 @@ export class InventoryComponent implements OnInit {
   laptops: Laptop[] = [];
   desktops: Desktop[] = [];
   miscItems: Misc[] = [];
+  tableTitle = "Inventory";
 
   laptopDataSource = new MatTableDataSource<Laptop>();
   desktopDataSource = new MatTableDataSource<Desktop>();

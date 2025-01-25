@@ -51,10 +51,17 @@ export interface Participants {
 }
 
 export interface Donors {
-    names: string[],
-    role: string,
-    organization: string,
-    abbreviation: string,
-    phone: string,
-    email: string
+    name: string;
+    role: string;
+    organization: string;
+    abbreviation: string;
+    phone: string;
+    email: string;
+}
+
+export interface Donations {
+    company: string;
+    donation_date: Date;
+    total: number;
+
 }

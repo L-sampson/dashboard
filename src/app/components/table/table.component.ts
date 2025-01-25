@@ -26,6 +26,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() links: TabLink[] = [];
+  @Input () tableTitle: string = '';
   activeLink!: TabLink
 
   constructor(private dialog: MatDialog,
