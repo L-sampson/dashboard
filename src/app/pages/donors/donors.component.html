@@ -13,19 +13,12 @@
 </div>
 
 <div class="widgets">
-  <div class="widget-container">
-    <mat-card appearance="outlined" *ngFor="let item of topWidgets">
-      <mat-card-header>
-        <mat-card-title-group>
-          <mat-icon>{{ item.icon }}</mat-icon>
-          <mat-card-title>{{item.header}}</mat-card-title>
-        </mat-card-title-group>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{item.stats}} {{item.title}}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <app-widgets 
+    *ngFor="let item of topWidgets"
+    [header] = "item.header"
+    [icon]="item.icon"
+    [stats]="item.stats"
+    [title]="item.title"></app-widgets>
 </div>
 
 <div class="donor-table-activity">

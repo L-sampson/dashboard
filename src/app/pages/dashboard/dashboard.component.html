@@ -2,20 +2,13 @@
   <h1>Dashboard</h1>
 </div>
 
-<div class="widgets">
-  <div class="widget-container">
-    <mat-card appearance="outlined" *ngFor="let item of topWidgets">
-      <mat-card-header>
-        <mat-card-title-group>
-          <mat-icon>{{ item.icon }}</mat-icon>
-          <mat-card-title>{{item.header}}</mat-card-title>
-        </mat-card-title-group>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{item.stats}} {{item.title}}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<div class="top-widgets">
+    <app-widgets
+    *ngFor="let widget of topWidgets"
+    [header]="widget.header"
+    [icon]="widget.icon"
+    [stats]="widget.stats"
+    [title]="widget.title"></app-widgets>
 </div>
 
 <div class="widgets">

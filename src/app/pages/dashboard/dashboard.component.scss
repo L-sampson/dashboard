@@ -5,12 +5,15 @@
 
 }
 
+.top-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
 .widget-container { 
     display: flex; 
     justify-content: space-between; 
     gap: 10px; /* Space between cards */
-    // overflow-x: auto; /* Allow horizontal scrolling if necessary */
-    // -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */ scrollbar-width: none; /* Hide scrollbar in Firefox */
     app-line-graph {
         height: 560px;
         width: calc(70% - 20px);

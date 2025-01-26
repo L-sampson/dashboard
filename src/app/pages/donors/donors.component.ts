@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
 import { TopWidgets } from '../../interfaces/widgets';
 import { TabLink } from '../../interfaces/utils';
 import { MatTableDataSource } from '@angular/material/table';
 import { Donors, Donations } from '../../interfaces/models';
 import { TableComponent } from '../../components/table/table.component';
 import { DonorsService } from '../../services/donors.service';
+import { WidgetsComponent } from '../../components/widgets/widgets.component';
 
 @Component({
   selector: 'app-donors',
-  imports: [MatButtonModule, MatIconModule, MatCardModule, CommonModule, TableComponent],
+  imports: [MatButtonModule, MatIconModule, CommonModule, TableComponent, WidgetsComponent],
   templateUrl: './donors.component.html',
   styleUrl: './donors.component.scss'
 })
