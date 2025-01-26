@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { LineChartComponent } from "../../charts/line-chart/line-chart.component";
 import { TableComponent } from '../../components/table/table.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { TabLink } from '../../interfaces/utils';
 import { Workshop, Participants } from '../../interfaces/models';
 import { WorkshopService } from '../../services/workshop.service';
 import { TopWidgets } from '../../interfaces/widgets';
+import { LineGraphComponent } from "../../charts/line-graph/line-graph.component";
+import { PieGraphComponent } from '../../charts/pie-graph/pie-graph.component';
 
 
 export interface ImpactWidget {
@@ -23,7 +24,7 @@ export interface ImpactWidget {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatCardModule, CommonModule, MatIconModule, LineChartComponent, TableComponent],
+  imports: [MatCardModule, CommonModule, MatIconModule, TableComponent, LineGraphComponent, PieGraphComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LineChartComponent } from './line-chart.component';
+import { PieGraphComponent } from './pie-graph.component';
 
-describe('LineChartComponent', () => {
-  let component: LineChartComponent;
-  let fixture: ComponentFixture<LineChartComponent>;
+describe('PieGraphComponent', () => {
+  let component: PieGraphComponent;
+  let fixture: ComponentFixture<PieGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LineChartComponent]
+      imports: [PieGraphComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LineChartComponent);
+    fixture = TestBed.createComponent(PieGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
