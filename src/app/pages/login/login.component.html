@@ -14,11 +14,11 @@
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="input-fields">
                         <mat-form-field appearance="outline">
                             <mat-label>Username</mat-label>
-                            <input matInput placeholder="ex: admin">
+                            <input formControlName="username" matInput placeholder="ex: admin">
                             <mat-icon matSuffix>person</mat-icon>
                         </mat-form-field>
                     </div>
@@ -26,12 +26,12 @@
                     <div class="input-fields">
                         <mat-form-field appearance="outline">
                             <mat-label>Password</mat-label>
-                            <input matInput type="password" placeholder="Enter your Password">
+                            <input formControlName="password" matInput type="password" placeholder="Enter your Password">
                             <mat-icon matSuffix>visibility</mat-icon>
                         </mat-form-field>
                     </div>
                     
-                    <button mat-flat-button color="primary" type="submit">Login</button>
+                    <button mat-flat-button type="submit">Login</button>
                 </form>
             </mat-card-content>
         </mat-card>
