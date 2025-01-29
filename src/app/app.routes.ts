@@ -2,13 +2,14 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { DonorsComponent } from './pages/donors/donors.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'dashboard'
-    },
+    // {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     redirectTo: 'dashboard'
+    // },
     {
         path: 'dashboard',
         component: DashboardComponent
@@ -20,5 +21,9 @@ export const routes: Routes = [
     {
         path: 'donors',
         component: DonorsComponent
+    },
+    {
+        path: '',
+        component: LoginComponent
     }
 ];

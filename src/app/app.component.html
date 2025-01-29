@@ -1,3 +1,4 @@
+<ng-container *ngIf="!isLoginPage()">
 <mat-toolbar>
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
     <mat-icon>menu</mat-icon> Inventory App
@@ -12,3 +13,6 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</ng-container>
+
+<router-outlet *ngIf="isLoginPage()"></router-outlet>

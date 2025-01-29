@@ -30,7 +30,7 @@ import { InventoryService } from '../../services/inventory.service';
   styleUrls: ['./file-export-dialog.component.scss'],
 })
 export class FileExportDialogComponent implements OnInit {
-  constructor(private inventoryService: InventoryService) {}
+  constructor(private inventoryService: InventoryService) { }
 
   myControl = new FormControl('');
   blobs: { name: string; size: number }[] = [];
@@ -45,7 +45,7 @@ export class FileExportDialogComponent implements OnInit {
       );
     });
   }
-  
+
 
   private filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -53,8 +53,8 @@ export class FileExportDialogComponent implements OnInit {
       .map((blob) => blob.name)
       .filter((name) => name.toLowerCase().includes(filterValue));
   }
-  
-  
+
+
 
   addFile(): void {
     const fileName = this.myControl.value;
@@ -82,7 +82,7 @@ export class FileExportDialogComponent implements OnInit {
       });
     });
   }
-  
+
 
   removeFile(fileName: string): void {
     this.selectedFiles = this.selectedFiles.filter(
