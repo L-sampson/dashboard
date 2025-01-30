@@ -3,6 +3,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { DonorsComponent } from './pages/donors/donors.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { authGuard } from './services/auth/auth-guard.guard';
 
 export const routes: Routes = [
@@ -16,18 +17,26 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path: 'inventory',
-        component: InventoryComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path: 'donors',
-        component: DonorsComponent
+        path: '',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+            },
+            {
+                path: 'inventory',
+                component: InventoryComponent,
+            },
+            {
+                path: 'donors',
+                component: DonorsComponent
+            },
+            {
+                path: '**',
+                component: UnauthorizedComponent
+            }
+        ]
     }, 
     {
         path: '**',

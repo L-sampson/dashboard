@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm! : FormGroup;
+  validCredentials = true;
+  hide = signal(true);
 
   router = inject(Router);
 
@@ -28,16 +30,20 @@ export class LoginComponent {
     })
   }
 
+  revealPassword(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
+
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const username = this.loginForm.value.username;
-      const password = this.loginForm.value.password;
+      const { username, password} = this.loginForm.value;
       if(this.authService.login(username, password)) {
-        this.router.navigateByUrl('dashboard')
+        this.router.navigateByUrl('dashboard');
       }
-    } else {
-      alert('Please fill out the form correctly.');
-    }
+      console.log('Incorrect password or unsername');
+      this.validCredentials = false;
+    } 
   }
 
 }

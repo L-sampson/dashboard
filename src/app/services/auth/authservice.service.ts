@@ -4,24 +4,27 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthenticated: boolean = false;
 
   constructor() { }
 
   login(username: string, password: string): boolean {
-    if(username == 'admin' && password == 'Inspiredu!2025') {
-      this.isAuthenticated = true;
+    if(username == 'admin@iuatl.org' && password == 'Inspiredu!2025') {
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('user', username);
+      localStorage.setItem('role', 'Admin');
       return true;
     }
     return false;
   }
 
   logout(): void {
-    this.isAuthenticated = false;
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
   }
 
   isAuthorized(): boolean {
-    return this.isAuthenticated;
+    return localStorage.getItem('isAuthenticated') === 'true';
   }
 
 }

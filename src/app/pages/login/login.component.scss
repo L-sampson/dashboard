@@ -60,7 +60,7 @@ mat-card-subtitle {
     }
 }
 
-button {
+button.submit {
     width: 100%;
     background-color: #2962FF;
     border-radius: 5px;
@@ -70,8 +70,13 @@ button {
     font-size: 24px;
 }
 
-.error {
+.error-message {
     color: red;
-    font-size: 12px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+mat-form-field {
+    width: 100%;
 }
