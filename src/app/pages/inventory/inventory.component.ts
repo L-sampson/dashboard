@@ -10,6 +10,7 @@ import { InventoryService } from '../../services/inventory.service';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FileExportDialogComponent } from '../../components/file-export-dialog/file-export-dialog.component'; 
+import { forkJoin } from 'rxjs';
 
 
 
@@ -24,6 +25,7 @@ export class InventoryComponent implements OnInit {
   desktops: Desktop[] = [];
   miscItems: Misc[] = [];
   tableTitle = "Inventory";
+  isLoading: boolean = true;
 
   laptopDataSource = new MatTableDataSource<Laptop>();
   desktopDataSource = new MatTableDataSource<Desktop>();
@@ -33,9 +35,8 @@ export class InventoryComponent implements OnInit {
   readonly dialog = inject(MatDialog)
 
   ngOnInit(): void {
-    this.fetchDesktops();
-    this.fetchLaptops();
-    this.fetchMiscItems();
+    this.isLoading = true;
+    this.loadData();
   }
 
   laptopsColumns: string[] = ['brand', 'model', 'serial', 'asset_tag', 'status', 'processor'];
@@ -48,23 +49,23 @@ export class InventoryComponent implements OnInit {
     { name: 'Misc Item', displayedColumns: this.miscItemColumns, dataSource: this.miscDataSource }
   ]
 
-  fetchLaptops() {
-    console.log('fetch')
-    this.inventoryService.getLaptops().subscribe((data: Laptop[]) => {
-      this.laptops = data;
-      this.laptopDataSource.data = data;
-    });
-  }
+  loadData(): void {
+    forkJoin({
+      laptops: this.inventoryService.getLaptops(),
+      desktops: this.inventoryService.getDesktops(),
+      miscItems: this.inventoryService.getMiscItems()
+    }).subscribe(({ laptops, desktops, miscItems }) => {
+      this.laptops = laptops;
+      this.laptopDataSource.data = laptops;
 
-  fetchDesktops() {
-    this.inventoryService.getDesktops().subscribe((data: Desktop[]) => {
-      this.desktops = data;
-      this.desktopDataSource.data = data;
-    });
-  }
+      this.desktops = desktops;
+      this.desktopDataSource.data = desktops;
 
-  fetchMiscItems(): void { 
-    this.inventoryService.getMiscItems().subscribe((data: Misc[]) => { this.miscItems = data; this.miscDataSource.data = data; }); 
+      this.miscItems = miscItems;
+      this.miscDataSource.data = miscItems;
+
+      this.isLoading = false;
+    })
   }
 
   openFileImportDialog() {

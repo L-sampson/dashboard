@@ -13,7 +13,7 @@
 .widget-container { 
     display: flex; 
     justify-content: space-between; 
-    gap: 10px; /* Space between cards */
+    gap: 10px;
     app-line-graph {
         height: 560px;
         width: calc(70% - 20px);
@@ -101,12 +101,6 @@ mat-card-title-group {
     mat-icon {
         font-size: 45px;
     }
-    .value .top {
-        font-size: 26px;
-    }
-    .value .bottom {
-        font-size: 16px;
-    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -115,11 +109,5 @@ mat-card-title-group {
     }
     mat-icon {
         font-size: 40px;
-    }
-    .value .top {
-        font-size: 22px;
-    }
-    .value .bottom {
-        font-size: 14px;
     }
 }

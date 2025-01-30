@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): boolean {
-    if(username == 'admin@iuatl.org' && password == 'Inspiredu!2025') {
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('user', username);
-      localStorage.setItem('role', 'Admin');
-      return true;
-    }
-    return false;
+  login(username: string, password: string): Observable<{token: string}>{
+    return this.http.post<{token: string}>(`${environment.apiUrl}/login`, {username, password}).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+      })
+    )
   }
 
   logout(): void {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
+    localStorage.removeItem('token');
   }
 
   isAuthorized(): boolean {
-    return localStorage.getItem('isAuthenticated') === 'true';
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 
 }

@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TabLink } from '../../interfaces/utils';
@@ -17,7 +18,7 @@ import { Desktop, Laptop, Misc } from '../../interfaces/models';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatInputModule, MatFormFieldModule, CommonModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule],
+  imports: [MatTableModule, MatInputModule, MatFormFieldModule, CommonModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, MatProgressBarModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -26,10 +27,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() links: TabLink[] = [];
-  @Input () tableTitle: string = '';
+  @Input() tableTitle: string = '';
+  @Input() isLoading: boolean = true;
   activeLink!: TabLink
 
-  constructor(private dialog: MatDialog,
+  constructor(
+    private dialog: MatDialog,
     private inventoryService: InventoryService,
     private workshopService: WorkshopService
   ) {}

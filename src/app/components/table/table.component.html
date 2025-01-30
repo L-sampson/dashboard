@@ -17,7 +17,7 @@
     </mat-form-field>
     <button mat-raised-button (click)="openDialog(activeLink.name)" class="button"><mat-icon>add</mat-icon> Add {{ activeLink.name }}</button>
   </div>
-
+  <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
   <table mat-table [dataSource]="activeLink.dataSource">
     <ng-container *ngFor="let column of activeLink.displayedColumns" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef>{{ column.toUpperCase() }}</th>

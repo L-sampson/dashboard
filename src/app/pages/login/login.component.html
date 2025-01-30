@@ -44,8 +44,14 @@
                         </button>
                         </mat-form-field>
                     </div>
-                    
-                    <button class="submit" mat-flat-button type="submit">Login</button>
+                    <button class="submit" mat-flat-button type="submit">
+                        <span *ngIf="!isLoading">Login</span>
+                        <mat-progress-spinner 
+                        *ngIf="isLoading" 
+                        [diameter]="45" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                    </button>
                 </form>
             </mat-card-content>
         </mat-card>
