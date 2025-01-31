@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Donors } from '../interfaces/models';
+import { Donors, Organizations } from '../interfaces/models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -19,7 +19,15 @@ export class DonorsService {
     return this.http.get<{contacts_count: number}>(`${environment.apiUrl}/contactsnumber`)
   }
 
+  getDonationsCount(): Observable<{donations_count: number}> {
+    return this.http.get<{donations_count: number}>(`${environment.apiUrl}/donationsnumber`);
+  }
+
   fetchContacts(): Observable<Donors[]> {
     return this.http.get<Donors[]>(`${environment.apiUrl}/contacts`)
+  }
+
+  fetchOrganizations(): Observable<Organizations[]> {
+    return this.http.get<Organizations[]>(`${environment.apiUrl}/organizations`)
   }
 }

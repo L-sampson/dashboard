@@ -59,6 +59,13 @@ export interface Donors {
     email: string;
 }
 
+export interface Organizations {
+    organization_name: string;
+    org_abbreviation: string;
+    most_recent_donation_date: string;
+    total_donations: string;
+}
+
 export interface Donations {
     company: string;
     donation_date: Date;
