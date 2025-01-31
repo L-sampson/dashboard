@@ -6,7 +6,7 @@ export enum Status {
     Recycled
 }
 
-export interface Models {
+export interface Computer {
     brand: string;
     model: string;
     serial: string;
@@ -14,12 +14,12 @@ export interface Models {
     status: Status;
 }
 
-export interface Laptop extends Models {
+export interface Laptop extends Computer {
     processor: string;
 }
 
 
-export interface Desktop extends Models {
+export interface Desktop extends Computer {
     processor: string;
     hard_drive: string;
 }
@@ -51,11 +51,11 @@ export interface Participants {
 }
 
 export interface Donors {
-    name: string;
+    full_name: string;
     role: string;
-    organization: string;
-    abbreviation: string;
-    phone: string;
+    organization_name: string;
+    org_abbreviation: string;
+    phone_number: string;
     email: string;
 }
 

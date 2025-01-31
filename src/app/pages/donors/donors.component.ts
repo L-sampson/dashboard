@@ -9,6 +9,7 @@ import { Donors, Donations } from '../../interfaces/models';
 import { TableComponent } from '../../components/table/table.component';
 import { DonorsService } from '../../services/donors.service';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-donors',
@@ -18,11 +19,15 @@ import { WidgetsComponent } from '../../components/widgets/widgets.component';
 })
 export class DonorsComponent {
   orgCount: number | null = null;
+  contactCount: number | null = null;
+  contacts: Donors[] = [];
+  isLoading: boolean = true;
 
   constructor(private donorService: DonorsService) {}
 
   ngOnInit(): void {
-    this.loadOrganizationsCount();
+    this.loadWidgetData();
+    this.loadTableData();
   }
 
   tableTitle = "Donors";
@@ -31,12 +36,12 @@ export class DonorsComponent {
 
   topWidgets: TopWidgets[] = [
     {header: 'Donor Partners', icon: 'handshake', stats: this.orgCount, title: 'Companies'},
-    {header: 'Contacts', icon: 'groups', stats: 39, title: 'Contacts'},
+    {header: 'Contacts', icon: 'groups', stats: this.contactCount, title: 'Contacts'},
     {header: 'Donations', icon: 'pallet', stats: 2, title: 'Donations Recieved'},
     {header: 'CODD Letters', icon: 'mail', stats: 3, title: 'Letters Sent'}
   ]
 
-  donorsColumns : string[] = ['name', 'role', 'organization', 'org abreviation', 'phone number', 'email'];
+  donorsColumns : string[] = ['full_name', 'role', 'organization_name', 'org_abbreviation', 'phone_number', 'email'];
   dontaionColumns : string [] = ['company', 'recent donation date', 'total donations'];
 
   links: TabLink[] = [
@@ -44,20 +49,25 @@ export class DonorsComponent {
     {name: 'Donations', displayedColumns: this.dontaionColumns, dataSource: this.donationsDataSource}
   ]
 
-  loadOrganizationsCount(): void {
-    this.donorService.getOrganizationsCount().subscribe({
-      next: (data) => {
-        this.orgCount = data.organizations_count;
-        console.log(this.orgCount);
+  loadWidgetData(): void {
+    forkJoin({
+      orgs: this.donorService.getOrganizationsCount(),
+      contacts: this.donorService.getContactsCount()
+    }).subscribe(({orgs, contacts}) => {
+      this.orgCount = orgs.organizations_count;
+      this.contactCount = contacts.contacts_count;
+       this.topWidgets[0].stats = this.orgCount;
+       this.topWidgets[1].stats = this.contactCount;
 
-        const donorWidget = this.topWidgets.find(widget => widget.header === 'Donor Partners');
-        if (donorWidget) {
-          donorWidget.stats = this.orgCount;
-        }
-      },
-      error: (error) => {
-        console.error('Failed to fecth organizations count', error)
-      }
+    });
+  }
+
+  loadTableData(): void {
+    this.donorService.fetchContacts().subscribe((data) => {
+      this.contacts = data;
+      this.donorsDataSource.data = this.contacts
+      console.log(data);
+      this.isLoading = false;
     })
   }
 }
