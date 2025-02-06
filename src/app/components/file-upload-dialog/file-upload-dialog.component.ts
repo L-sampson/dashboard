@@ -1,16 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FileMetaData } from '../../interfaces/utils';
+import { DonorsMetaData, FileMetaData, InventoryMetaData } from '../../interfaces/utils';
 import { InventoryService } from '../../services/inventory.service';
+import { DonorsService } from '../../services/donors.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Observable } from 'rxjs';
 
+type AllMetaData = InventoryMetaData | DonorsMetaData;
+
+export interface DialogData {
+  title: string,
+}
 
 @Component({
   selector: 'app-file-upload-dialog',
@@ -20,9 +29,21 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrl: './file-upload-dialog.component.scss',
 })
 export class FileUploadDialogComponent {
-  constructor(private inventoryService: InventoryService) {}
-  files: Map<string, FileMetaData> = new Map()
+  constructor(private inventoryService: InventoryService, private donorsService: DonorsService) {}
+  files: Map<string, FileMetaData<AllMetaData>> = new Map();
   readonly startDate = new Date();
+  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+  private snackBar = inject(MatSnackBar);
+
+  private metadataTypeMap: Record<string, () => AllMetaData> = {
+    'Inventory': () => ({companyName: '', donationDate: null}),
+    'Donors': () => ({lastUpdate: null})
+  }
+
+  getMetaDataType(pageTitle: string) {
+    const metadata = this.metadataTypeMap[pageTitle];
+    return metadata();
+  }
 
   checkFileType(file: File): boolean {
     const allowedTypes = [
@@ -102,15 +123,13 @@ private addFile(file: File) {
     return
   }
 
-  const metdata: FileMetaData = {
+  const metadata: FileMetaData<AllMetaData> = {
     file,
-    companyName: '',
-    donationDate: null,
+    ...this.getMetaDataType(this.data.title) // Retrieve correct metadata type
   };
 
-  this.files.set(key, metdata)
-  console.log('File added', metdata)
-  console.log(this.FileEntries)
+
+  this.files.set(key, metadata)
 }
 
 removeFile(file: File) {
@@ -142,36 +161,57 @@ setFileSize(fileSize: number) {
   return `${fileSize} ${units[count]}`
 }
 
-uploadFiles() {
+private showSnackBar(message: string) {
+  this.snackBar.open(message, 'Close', {
+    duration: 3000,
+    horizontalPosition: 'center',
+    verticalPosition: 'bottom'
+  });
+}
+
+private serviceCallMap: Record<string, (form: FormData) => Observable<any>> = {
+  'Inventory': (form: FormData) => this.inventoryService.bulkImport(form),
+  'Donors': (form: FormData) => this.donorsService.bulkContactsImport(form)
+}
+
+uploadFiles(pageTitle: string) {
+  const meta = this.getMetaDataType(pageTitle);
+  console.log(meta);
   const form = new FormData();
-  this.files.forEach(file => {
-    if (!file.companyName || !file.donationDate) {
-      alert('Please complete all required fields for each file.');
+
+  this.files.forEach((fileData, fileName) => {
+    if (!fileData.file) {
+      alert(`Missing File: ${fileName}`);
       return;
     }
 
-    if (!file.file) {
-      alert('Missing File');
-      return;
+    form.append('file', fileData.file);
+
+    // Add metadata
+    if (pageTitle === 'Inventory' && this.isInventoryMetadata(fileData)) {
+      if(!fileData.companyName || !fileData.donationDate) {
+        alert('Please include the missing donation or company name');
+        return;
+      }
+
+      form.append('companyName', fileData.companyName);
+      form.append('donationDate', fileData.donationDate?.toISOString() || '');
     }
-    form.append('companyName', file.companyName);
-    form.append('donationDate', file.donationDate.toISOString());
-    form.append('file', file.file);  // Keep appending with the same 'file' key for each file
   });
 
-  console.log('Form Data Contents:');
-  for (const [key, value] of form.entries()) {
-    console.log(`${key}:`, value);
+  const serviceCall = this.serviceCallMap[pageTitle];
+  if(!serviceCall) {
+    this.showSnackBar(`No Service found for ${pageTitle}`)
   }
 
-  this.inventoryService.bulkImport(form).subscribe({
+  serviceCall(form).subscribe({
     next: (response) => {
-      console.log('Upload successful:', response);
+      this.showSnackBar(response.message);
     },
     error: (err) => {
-      console.error('Upload failed:', err);
+      this.showSnackBar(err.message);
     }
-  });
+  })
 }
 
 
@@ -190,6 +230,10 @@ onDragOver(event: DragEvent) {
 onDragLeave(event: DragEvent) {
   event.preventDefault();
   event.stopPropagation();
+}
+
+isInventoryMetadata(fileData: any): fileData is InventoryMetaData {
+  return 'companyName' in fileData && 'donationDate' in fileData;
 }
 
 }

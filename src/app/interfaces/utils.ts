@@ -7,8 +7,16 @@ export interface TabLink {
 }
 
 
-export interface FileMetaData {
+export interface FileMetaData<T = {}> {
     file: File;
+    metadata?: T;    
+}
+
+export interface InventoryMetaData {
     companyName: string;
     donationDate: Date | null;
+}
+
+export interface DonorsMetaData {
+    lastUpdate: Date | null;
 }

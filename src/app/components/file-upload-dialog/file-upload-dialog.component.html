@@ -1,8 +1,8 @@
 <div class="dialog-header">
-  <h2 mat-dialog-title>Upload Files </h2>
+  <h2 mat-dialog-title>Upload {{data.title}} Files </h2>
   <button mat-button (click)="onSampleFile()">
     <mat-icon>download</mat-icon>
-    Sample Inventory File</button>
+    Sample {{data.title}} File</button>
 </div>
 <hr>
 <mat-dialog-content>
@@ -33,14 +33,14 @@
           </button>
         </li>
       </ul>
-      <div class="file-form-grid">
+      <div class="file-form-grid" *ngIf="data?.title === 'Inventory' && isInventoryMetadata(file[1])">
         <mat-form-field appearance="outline">
           <mat-label>Company Name</mat-label>
           <input matInput placeholder="Ex. Vestis" required [(ngModel)]="file[1].companyName" />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Donation Date</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="file[1].donationDate" />
+          <input matInput [matDatepicker]="picker" required [(ngModel)]="file[1].donationDate" />
           <mat-hint>MM-DD-YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker" />
           <mat-datepicker #picker startView="year" [startAt]="startDate" />
@@ -56,5 +56,5 @@
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="uploadFiles()" mat-dialog-close>Upload</button>
+  <button mat-button (click)="uploadFiles(data.title)" mat-dialog-close>Upload</button>
 </mat-dialog-actions>

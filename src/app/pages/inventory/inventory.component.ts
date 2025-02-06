@@ -32,7 +32,7 @@ export class InventoryComponent implements OnInit {
   miscDataSource = new MatTableDataSource<Misc>();
 
   constructor(private inventoryService: InventoryService) { }
-  readonly dialog = inject(MatDialog)
+  readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -71,7 +71,8 @@ export class InventoryComponent implements OnInit {
   openFileImportDialog() {
     this.dialog.open(FileUploadDialogComponent, {
       width: '500px',
-      maxHeight: '1000px'
+      maxHeight: '1000px',
+      data: {title: this.tableTitle}
     })
   }
 

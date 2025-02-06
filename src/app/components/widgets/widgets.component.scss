@@ -2,10 +2,17 @@ mat-card {
     display: grid;
     width: calc(100% - 20px);
     height: 125px;
-    box-shadow: 5px 5px 5px #939393;
+    transition: box-shadow .3s;
     background-color: rgb(0, 63, 92);
     color: whitesmoke;
     margin-bottom: 20px;
+    float: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+mat-card:hover {
+    box-shadow: 0 8px 15px #f4ae46, 0 0 20px 10px #f4ae46;
+    transform: translateY(-5px);
 }
 
 mat-card-header {

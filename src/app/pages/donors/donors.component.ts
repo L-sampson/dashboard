@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, } from '@angular/core';
+import { Component, inject, } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TopWidgets } from '../../interfaces/widgets';
@@ -10,6 +10,8 @@ import { TableComponent } from '../../components/table/table.component';
 import { DonorsService } from '../../services/donors.service';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
 import { forkJoin } from 'rxjs';
+import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-donors',
@@ -26,6 +28,7 @@ export class DonorsComponent {
   isLoading: boolean = true;
 
   constructor(private donorService: DonorsService) {}
+  readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loadWidgetData();
@@ -80,4 +83,12 @@ export class DonorsComponent {
       this.organizationsDataSource.data = this.organizations;
    });
   }
+
+  openFileImportDialog() {
+      this.dialog.open(FileUploadDialogComponent, {
+        width: '500px',
+        maxHeight: '1000px',
+        data: {title: this.tableTitle}
+      })
+    }
 }

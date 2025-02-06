@@ -61,7 +61,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(itemType: string) {
-    const dialogRef =this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '890px',
       height: 'auto',
       data: {

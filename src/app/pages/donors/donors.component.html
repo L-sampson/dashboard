@@ -1,11 +1,11 @@
 <div class="donors-header">
   <h1>Donors</h1>
   <div class="btns">
-    <button mat-fab extended>
+    <button mat-fab extended (click)="openFileImportDialog()">
       <mat-icon>library_add</mat-icon>
       Bulk Import
     </button>
-    <button mat-fab extended>
+    <button mat-fab extended [disabled]="true">
       <mat-icon>file_download</mat-icon>
       Export Data
     </button>

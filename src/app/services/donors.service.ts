@@ -30,4 +30,8 @@ export class DonorsService {
   fetchOrganizations(): Observable<Organizations[]> {
     return this.http.get<Organizations[]>(`${environment.apiUrl}/organizations`)
   }
+
+  bulkContactsImport(form: FormData): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/bulkcontacts`, form)
+  }
 }

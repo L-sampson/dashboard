@@ -68,11 +68,9 @@ button.submit {
     padding: 1.5rem;
     cursor: pointer;
     font-size: 24px;
+    margin-bottom: 10px;
 }
 
-// .login-spinner {
-//     --mdc-circular-progress-active-indicator-color: #4CAF50 !important; 
-// }
 
 .error-message {
     color: red;
@@ -84,3 +82,35 @@ button.submit {
 mat-form-field {
     width: 100%;
 }
+
+.line {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    margin: 24px 0;
+    background-color: #d4d4d4;
+}
+
+.line::before {
+    content: 'Or';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f4f3f6;
+    color: #8b8b8b;
+    padding: 0 15px;
+  }
+
+  .msal-login {
+    display: flex;
+    align-items: center;
+    .msal-btn {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        width: 100%;
+        justify-content: space-evenly;
+        cursor: pointer;
+    }
+  }
