@@ -46,4 +46,8 @@ export class InventoryService {
   getInventorySampleBlob() {
     return this.http.get(`${environment.apiUrl}/sampleinventory`, { responseType: 'blob' });
   }
+
+  getInventorySummaryData(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/inventory_summary`);
+  }
 }

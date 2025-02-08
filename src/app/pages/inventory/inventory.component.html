@@ -3,111 +3,152 @@
     <h1>Inventory</h1>
     <p>Track and manage donated inventory.</p>
   </div>
-    <div class="btns">
-        <button mat-fab extended (click)="openFileImportDialog()">
-            <mat-icon>library_add</mat-icon>
-            Bulk Import
-        </button>
-        <button mat-fab extended (click)="openFileExportDialog()">
-            <mat-icon>file_download</mat-icon>
-            Export Data
-        </button>
-    </div>
+  <div class="btns">
+    <button mat-fab extended (click)="openFileImportDialog()">
+      <mat-icon>library_add</mat-icon>
+      Bulk Import
+    </button>
+    <button mat-fab extended (click)="openFileExportDialog()">
+      <mat-icon>file_download</mat-icon>
+      Export Data
+    </button>
+  </div>
 </div>
 
 <div class="widgets">
-  <app-widgets 
-  *ngFor="let item of topWidgets"
-  [header] = "item.header"
-  [icon]="item.icon"
-  [stats]="item.stats"
-  [title]="item.title"></app-widgets>
+  <app-widgets
+    *ngFor="let item of topWidgets"
+    [header]="item.header"
+    [icon]="item.icon"
+    [stats]="item.stats"
+    [title]="item.title"
+  ></app-widgets>
 </div>
 
 <div class="inventory-stats">
   <div class="inventory-graphs">
-    <mat-card>Bar Graph</mat-card>
-    <mat-card>Pie graph</mat-card>
-    <mat-card>Pie Graph</mat-card>
+    <mat-card class="graphs">Bar Graph</mat-card>
+    <mat-card class="graphs">
+      <mat-card-title>Top 10 Laptop models</mat-card-title>
+      <app-pie-graph
+        [pieChartLabels]="laptopLabels"
+        [pieData]="laptopData"
+      ></app-pie-graph>
+    </mat-card>
+    <mat-card class="graphs">Pie Graph</mat-card>
   </div>
-    <div class="tables-activity">
-        <app-table [links]="links" [tableTitle]="tableTitle" [isLoading]="isLoading"></app-table>
-        <div class="recent-activity">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Recent Activity</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="activity-list">
-                <!-- Laptop Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-06 14:30 </span>
-                    <span class="activity-detail">Laptop <strong>Dell XPS 13</strong> was moved to <em>Inventory</em> status.</span>
-                  </div>
-                </li>
-                <!-- Desktop Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-05 09:20 </span>
-                    <span class="activity-detail">Desktop <strong>HP Pavilion</strong> was updated with <em>512GB SSD</em>.</span>
-                  </div>
-                </li>
-                <!-- Misc Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-04 17:45 </span>
-                    <span class="activity-detail"><strong>Logitech Mouse</strong> (Qty: 50) was added to the inventory.</span>
-                  </div>
-                </li>
-                <!-- Laptop Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-03 11:10 </span>
-                    <span class="activity-detail">Laptop <strong>Apple MacBook Air</strong> was imaged with <em>macOS Big Sur</em>.</span>
-                  </div>
-                </li>
-                <!-- Desktop Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-02 13:50 </span>
-                    <span class="activity-detail">Desktop <strong>Dell OptiPlex</strong> was moved to <em>Distributed</em> status.</span>
-                  </div>
-                </li>
-                <!-- Misc Activity -->
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-01 08:30 </span>
-                    <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-01 08:30 </span>
-                    <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-01 08:30 </span>
-                    <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-01 08:30 </span>
-                    <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="activity-item">
-                    <span class="activity-time">2024-12-01 08:30 </span>
-                    <span class="activity-detail"><strong>Microsoft Keyboard</strong> (Qty: 30) was added to the inventory.</span>
-                  </div>
-                </li>
-              </ul>
-            </mat-card-content>
-          </mat-card>
-        </div> 
-    </div>     
+  <div class="tables-activity">
+    <app-table
+      [links]="links"
+      [tableTitle]="tableTitle"
+      [isLoading]="isLoading"
+    ></app-table>
+    <div class="recent-activity">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Recent Activity</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="activity-list">
+            <!-- Laptop Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-06 14:30 </span>
+                <span class="activity-detail"
+                  >Laptop <strong>Dell XPS 13</strong> was moved to
+                  <em>Inventory</em> status.</span
+                >
+              </div>
+            </li>
+            <!-- Desktop Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-05 09:20 </span>
+                <span class="activity-detail"
+                  >Desktop <strong>HP Pavilion</strong> was updated with
+                  <em>512GB SSD</em>.</span
+                >
+              </div>
+            </li>
+            <!-- Misc Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-04 17:45 </span>
+                <span class="activity-detail"
+                  ><strong>Logitech Mouse</strong> (Qty: 50) was added to the
+                  inventory.</span
+                >
+              </div>
+            </li>
+            <!-- Laptop Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-03 11:10 </span>
+                <span class="activity-detail"
+                  >Laptop <strong>Apple MacBook Air</strong> was imaged with
+                  <em>macOS Big Sur</em>.</span
+                >
+              </div>
+            </li>
+            <!-- Desktop Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-02 13:50 </span>
+                <span class="activity-detail"
+                  >Desktop <strong>Dell OptiPlex</strong> was moved to
+                  <em>Distributed</em> status.</span
+                >
+              </div>
+            </li>
+            <!-- Misc Activity -->
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-01 08:30 </span>
+                <span class="activity-detail"
+                  ><strong>Microsoft Keyboard</strong> (Qty: 30) was added to
+                  the inventory.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-01 08:30 </span>
+                <span class="activity-detail"
+                  ><strong>Microsoft Keyboard</strong> (Qty: 30) was added to
+                  the inventory.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-01 08:30 </span>
+                <span class="activity-detail"
+                  ><strong>Microsoft Keyboard</strong> (Qty: 30) was added to
+                  the inventory.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-01 08:30 </span>
+                <span class="activity-detail"
+                  ><strong>Microsoft Keyboard</strong> (Qty: 30) was added to
+                  the inventory.</span
+                >
+              </div>
+            </li>
+            <li>
+              <div class="activity-item">
+                <span class="activity-time">2024-12-01 08:30 </span>
+                <span class="activity-detail"
+                  ><strong>Microsoft Keyboard</strong> (Qty: 30) was added to
+                  the inventory.</span
+                >
+              </div>
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

@@ -11,15 +11,15 @@ import { InventoryService } from '../../services/inventory.service';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FileExportDialogComponent } from '../../components/file-export-dialog/file-export-dialog.component'; 
+import { FileExportDialogComponent } from '../../components/file-export-dialog/file-export-dialog.component';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
-
+import { PieGraphComponent } from '../../charts/pie-graph/pie-graph.component';
 
 
 @Component({
   selector: 'app-inventory',
-  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule],
+  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule, PieGraphComponent],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss'
 })
@@ -27,6 +27,14 @@ export class InventoryComponent implements OnInit {
   laptops: Laptop[] = [];
   desktops: Desktop[] = [];
   miscItems: Misc[] = [];
+  inventoryCount: number | null = null;
+  laptopCount: number | null = null;
+  desktopCount: number | null = null;
+
+  laptopModels: Map<string, number> = new Map();
+  laptopLabels: string[] = [];
+  laptopData: number[] = [];
+  pieLaptopModelTitle: string = 'Laptops By Model';
   tableTitle = "Inventory";
   isLoading: boolean = true;
 
@@ -35,9 +43,9 @@ export class InventoryComponent implements OnInit {
   miscDataSource = new MatTableDataSource<Misc>();
 
   topWidgets: TopWidgets[] = [
-    {header: 'Total Inventory', icon: 'local_shipping', stats: 336, title: 'Items on hand'},
-    {header: 'Total Laptops', icon: 'laptop', stats: 180, title: 'Laptops'},
-    {header: 'Total Desktops', icon: 'desktop_windows', stats: 127, title: 'Desktops'},
+    { header: 'Total Inventory', icon: 'local_shipping', stats: this.inventoryCount, title: 'Items on hand' },
+    { header: 'Total Laptops', icon: 'laptop', stats: this.laptopCount, title: 'Laptops' },
+    { header: 'Total Desktops', icon: 'desktop_windows', stats: this.desktopCount, title: 'Desktops' },
   ]
 
   constructor(private inventoryService: InventoryService) { }
@@ -46,6 +54,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.loadData();
+    this.loadWidgetData();
   }
 
   laptopsColumns: string[] = ['brand', 'model', 'serial', 'asset_tag', 'status', 'processor'];
@@ -57,6 +66,24 @@ export class InventoryComponent implements OnInit {
     { name: 'Desktops', displayedColumns: this.desktopsColumns, dataSource: this.desktopDataSource },
     { name: 'Misc Item', displayedColumns: this.miscItemColumns, dataSource: this.miscDataSource }
   ]
+
+  loadWidgetData(): void {
+    this.inventoryService.getInventorySummaryData().subscribe((data) => {
+      this.inventoryCount = data.inventory_count;
+      this.desktopCount = data.computer_count.desktops;
+      this.laptopCount = data.computer_count.laptops;
+      data.top_laptop_models.forEach((element: { model: string, count: number }) => {
+        this.laptopModels.set(element.model, element.count);
+      });
+
+      this.laptopLabels = Array.from(this.laptopModels.keys());
+      this.laptopData = Array.from(this.laptopModels.values());
+
+      this.topWidgets[0].stats = this.inventoryCount;
+      this.topWidgets[1].stats = this.laptopCount;
+      this.topWidgets[2].stats = this.desktopCount;
+    })
+  }
 
   loadData(): void {
     forkJoin({
@@ -81,7 +108,7 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(FileUploadDialogComponent, {
       width: '500px',
       maxHeight: '1000px',
-      data: {title: this.tableTitle}
+      data: { title: this.tableTitle }
     })
   }
 

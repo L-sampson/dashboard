@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartType, ChartConfiguration, ChartData } from 'chart.js';
 import { MatCardModule } from '@angular/material/card';
@@ -10,22 +10,39 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './pie-graph.component.scss'
 })
 export class PieGraphComponent {
+  @Input() pieChartLabels: string[] = [];
+  @Input() pieData: number[] = [];
+  @Input() title: string = '';
   public pieChartOptions: ChartConfiguration['options'] = {
     plugins: {
       legend: {
         display: true,
-        position: 'left',
+        position: 'right',
       }
-    }
+    },
+    responsive: true
   };
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Families Served', 'Learners Engaged', 'Devices Distributed', 'Learning Hours'],
+    labels: this.pieChartLabels,
     datasets: [
       {
-        data: [325, 400, 300, 54],
+        data: this.pieData,
       }
     ]
   };
   public pieChartType: ChartType = 'pie';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['pieChartLabels'] || changes['pieData']) {
+      this.pieChartData = {
+        labels: this.pieChartLabels,
+        datasets: [
+          {
+            data: this.pieData,
+          }
+        ]
+      };
+    }
+  }
 }

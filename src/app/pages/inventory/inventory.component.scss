@@ -53,20 +53,25 @@ button {
 }
 
 .inventory-graphs {
-  height: 280px;
+  height: 348px;
   width: auto;
-  border: 3px solid red;
   display: flex;
   justify-content: center;
   gap: 28px;
-  padding: 12px 8px;
+  padding: 12px 12px;
+  margin-bottom: 10px;
   
-  mat-card {
-    width: 392px;
-    height: 272px;
+  .graphs {
+    width: 560px;
+    height: 324px;
+    display: flex;
+    align-items: center;
+    mat-card-title {
+      padding-top: 10px;
+      color: #2962FF
+    }
   }
 }
-
 
 
 .recent-activity {
