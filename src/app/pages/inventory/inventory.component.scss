@@ -2,6 +2,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
+    margin: 10px;
+    .header-text h1 {
+      margin: 0;
+    }
+    .header-text p {
+      margin: 0;
+      font-size: 20px;
+      color: gray;
+    }
 }
 
 .btns {
@@ -21,13 +31,43 @@ button {
     display: flex;
     gap: 10px;
     justify-content: space-between;
+    flex-direction: column;
 }
 
-.inventory-tables {
-    border: 3px solid black;
-    height: 560px;
-    width: 890px;
+.tables-activity {
+    border: 3px solid purple;
+    height: 572px;
+    padding: 10px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+
+    app-table {
+      width: 900px;
+    }
 }
+
+.widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.inventory-graphs {
+  height: 280px;
+  width: auto;
+  border: 3px solid red;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  padding: 12px 8px;
+  
+  mat-card {
+    width: 392px;
+    height: 272px;
+  }
+}
+
+
 
 .recent-activity {
     min-width: 350px;

@@ -2,21 +2,24 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../components/table/table.component';
+import { TopWidgets } from '../../interfaces/widgets';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { TabLink } from '../../interfaces/utils';
 import { Laptop, Desktop, Misc } from '../../interfaces/models';
 import { InventoryService } from '../../services/inventory.service';
+import { WidgetsComponent } from '../../components/widgets/widgets.component';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FileExportDialogComponent } from '../../components/file-export-dialog/file-export-dialog.component'; 
 import { forkJoin } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-inventory',
-  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule],
+  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss'
 })
@@ -30,6 +33,12 @@ export class InventoryComponent implements OnInit {
   laptopDataSource = new MatTableDataSource<Laptop>();
   desktopDataSource = new MatTableDataSource<Desktop>();
   miscDataSource = new MatTableDataSource<Misc>();
+
+  topWidgets: TopWidgets[] = [
+    {header: 'Total Inventory', icon: 'local_shipping', stats: 336, title: 'Items on hand'},
+    {header: 'Total Laptops', icon: 'laptop', stats: 180, title: 'Laptops'},
+    {header: 'Total Desktops', icon: 'desktop_windows', stats: 127, title: 'Desktops'},
+  ]
 
   constructor(private inventoryService: InventoryService) { }
   readonly dialog = inject(MatDialog);
