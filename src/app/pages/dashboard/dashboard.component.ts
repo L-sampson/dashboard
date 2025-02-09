@@ -10,6 +10,7 @@ import { TopWidgets } from '../../interfaces/widgets';
 import { LineGraphComponent } from "../../charts/line-graph/line-graph.component";
 import { PieGraphComponent } from '../../charts/pie-graph/pie-graph.component';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 export interface ImpactWidget {
@@ -24,7 +25,7 @@ export interface ImpactWidget {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, MatIconModule, TableComponent, LineGraphComponent, PieGraphComponent, WidgetsComponent],
+  imports: [CommonModule, MatIconModule, TableComponent, LineGraphComponent, PieGraphComponent, WidgetsComponent, MatCardModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -33,12 +34,15 @@ export interface ImpactWidget {
 export class DashboardComponent implements OnInit {
   workshops: Workshop[] = [];
   participants: Participants[] = [];
+  labels: string[] = ['Families Served', 'Learners Engaged', 'Devices Distributed', 'Learning Hours']
+  data: number[] = [325, 400, 300, 54];
+  legendPosition = 'bottom';
 
   workshopDataSource = new MatTableDataSource<Workshop>();
   participantDataSource = new MatTableDataSource<Participants>();
   tableTitle = "Workshops"
 
-  constructor(private workshopService: WorkshopService) {}
+  constructor(private workshopService: WorkshopService) { }
 
   ngOnInit(): void {
     this.fetchWorkshops();
@@ -46,7 +50,7 @@ export class DashboardComponent implements OnInit {
   }
 
   topWidgets: TopWidgets[] = [
-    { header: 'Items Received', icon: 'shelves', stats: 4000, title: 'Items Received'},
+    { header: 'Items Received', icon: 'shelves', stats: 4000, title: 'Items Received' },
     { header: 'Workshops', icon: 'cast_for_education', stats: 20, title: 'Workshops' },
     { header: 'Activated Laptops', icon: 'devices', stats: 40, title: 'Activated Laptops' },
     { header: 'Items Recycled', icon: 'recycling', stats: 5000, title: 'Items Recycled' }
@@ -56,27 +60,27 @@ export class DashboardComponent implements OnInit {
   participantColumns: string[] = ['name', 'age', 'workshop'];
 
   links: TabLink[] = [
-    { 
+    {
       name: 'Workshops',
-      displayedColumns: this.workshopColumns, 
-      dataSource: this.workshopDataSource 
+      displayedColumns: this.workshopColumns,
+      dataSource: this.workshopDataSource
     },
-    { 
-      name: 'Participants', 
-      displayedColumns: this.participantColumns, 
-      dataSource: this.participantDataSource 
+    {
+      name: 'Participants',
+      displayedColumns: this.participantColumns,
+      dataSource: this.participantDataSource
     }
   ]
 
   fetchWorkshops() {
-    this.workshopService.getWorkshops().subscribe((data:Workshop[]) => {
+    this.workshopService.getWorkshops().subscribe((data: Workshop[]) => {
       this.workshops = data;
       this.workshopDataSource.data = data;
     });
   }
 
   fetchParticipants() {
-    this.workshopService.getParticipants().subscribe((data:Participants[]) => {
+    this.workshopService.getParticipants().subscribe((data: Participants[]) => {
       this.participants = data;
       this.participantDataSource.data = data;
     })

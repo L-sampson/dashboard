@@ -36,6 +36,12 @@ export class LineGraphComponent {
         tension: 0.5,
       },
     },
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+    },
+    responsive: true,
   };
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;

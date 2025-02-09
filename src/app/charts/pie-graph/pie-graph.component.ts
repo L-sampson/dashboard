@@ -10,39 +10,43 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './pie-graph.component.scss'
 })
 export class PieGraphComponent {
-  @Input() pieChartLabels: string[] = [];
-  @Input() pieData: number[] = [];
+  @Input() labels: string[] = [];
+  @Input() data: number[] = [];
   @Input() title: string = '';
+  @Input() legendPosition: string | null = 'right';
   public pieChartOptions: ChartConfiguration['options'] = {
     plugins: {
       legend: {
         display: true,
-        position: 'right',
+        position: this.legendPosition as 'top' | 'left' | 'bottom' | 'right',
       }
     },
     responsive: true
   };
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: this.pieChartLabels,
+    labels: this.labels,
     datasets: [
       {
-        data: this.pieData,
+        data: this.data,
       }
     ]
   };
   public pieChartType: ChartType = 'pie';
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pieChartLabels'] || changes['pieData']) {
+    if (changes['labels'] || changes['data']) {
       this.pieChartData = {
-        labels: this.pieChartLabels,
+        labels: this.labels,
         datasets: [
           {
-            data: this.pieData,
+            data: this.data,
           }
         ]
       };
+    }
+    if (changes['legendPosition'] && this.pieChartOptions?.plugins?.legend) {
+      this.pieChartOptions.plugins.legend.position = this.legendPosition as 'top' | 'left' | 'bottom' | 'right';
     }
   }
 }

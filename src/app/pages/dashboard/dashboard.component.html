@@ -3,17 +3,29 @@
 </div>
 
 <div class="top-widgets">
-    <app-widgets
+  <app-widgets
     *ngFor="let widget of topWidgets"
     [header]="widget.header"
     [icon]="widget.icon"
     [stats]="widget.stats"
-    [title]="widget.title"></app-widgets>
+    [title]="widget.title"
+  ></app-widgets>
 </div>
 
 <div class="widgets">
   <div class="widget-container">
-      <app-line-graph></app-line-graph><app-pie-graph></app-pie-graph>
+    <mat-card class="line-graph">
+      <mat-card-title> Operations Summary </mat-card-title>
+      <app-line-graph></app-line-graph>
+    </mat-card>
+    <mat-card class="pie-graph">
+      <mat-card-title>Enagement Summary</mat-card-title>
+      <app-pie-graph
+        [labels]="labels"
+        [data]="data"
+        [legendPosition]="legendPosition">
+      </app-pie-graph>
+    </mat-card>
   </div>
 </div>
 
@@ -33,19 +45,19 @@
         <div class="key-metrics">
           <div class="metric">
             <span class="label">Workshops:</span>
-            <span class="metric-number">{{metric.workshops}}</span>
+            <span class="metric-number">{{ metric.workshops }}</span>
           </div>
           <div class="metric">
             <span class="label">Participants:</span>
-            <span class="metric-number">{{metric.participants}}</span>
+            <span class="metric-number">{{ metric.participants }}</span>
           </div>
           <div class="metric">
             <span class="label">Devices:</span>
-            <span class="metric-number">{{metric.devices}}</span>
+            <span class="metric-number">{{ metric.devices }}</span>
           </div>
           <div class="metric">
             <span class="label">Hours:</span>
-            <span class="metric-number">{{metric.hours}}</span>
+            <span class="metric-number">{{ metric.hours }}</span>
           </div>
         </div>
       </div>
