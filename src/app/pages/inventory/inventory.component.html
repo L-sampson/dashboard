@@ -27,15 +27,30 @@
 
 <div class="inventory-stats">
   <div class="inventory-graphs">
-    <mat-card class="graphs">Bar Graph</mat-card>
+    <mat-card class="graphs">
+      <mat-card-title>Top Laptop Brands</mat-card-title>
+      <app-bar-graph
+      [labels]="brandLabels"
+      [data]="brandData"
+      ></app-bar-graph>
+    </mat-card>
     <mat-card class="graphs">
       <mat-card-title>Top 10 Laptop models</mat-card-title>
       <app-pie-graph
         [labels]="laptopLabels"
-        [data]="laptopData">
+        [data]="laptopData"
+        [legendPosition]="legendPosition">
       </app-pie-graph>
     </mat-card>
-    <mat-card class="graphs">Pie Graph</mat-card>
+    <mat-card class="graphs">
+      <mat-card-title>
+        Top Laptop Processors
+      </mat-card-title>
+      <app-pie-graph
+      [labels]="processorLabels"
+      [data]="processorData"
+      [legendPosition]="legendPosition"></app-pie-graph>
+    </mat-card>
   </div>
   <div class="tables-activity">
     <app-table

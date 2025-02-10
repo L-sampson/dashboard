@@ -15,11 +15,12 @@ import { FileExportDialogComponent } from '../../components/file-export-dialog/f
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PieGraphComponent } from '../../charts/pie-graph/pie-graph.component';
+import { BarGraphComponent } from "../../charts/bar-graph/bar-graph.component";
 
 
 @Component({
   selector: 'app-inventory',
-  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule, PieGraphComponent],
+  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule, PieGraphComponent, BarGraphComponent],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss'
 })
@@ -30,10 +31,21 @@ export class InventoryComponent implements OnInit {
   inventoryCount: number | null = null;
   laptopCount: number | null = null;
   desktopCount: number | null = null;
+  legendPosition = 'bottom';
 
   laptopModels: Map<string, number> = new Map();
+  laptopBrands: Map<string, number> = new Map();
+  laptopProcessors: Map<string, number> = new Map();
+
   laptopLabels: string[] = [];
   laptopData: number[] = [];
+
+  brandLabels: string[] = [];
+  brandData: number[] = [];
+
+  processorLabels: string[] = [];
+  processorData: number[] = [];
+
   pieLaptopModelTitle: string = 'Laptops By Model';
   tableTitle = "Inventory";
   isLoading: boolean = true;
@@ -72,12 +84,24 @@ export class InventoryComponent implements OnInit {
       this.inventoryCount = data.inventory_count;
       this.desktopCount = data.computer_count.desktops;
       this.laptopCount = data.computer_count.laptops;
-      data.top_laptop_models.forEach((element: { model: string, count: number }) => {
+      console.log(data);
+      data.laptops_info.top_laptop_models.forEach((element: { model: string, count: number }) => {
         this.laptopModels.set(element.model, element.count);
       });
-
       this.laptopLabels = Array.from(this.laptopModels.keys());
       this.laptopData = Array.from(this.laptopModels.values());
+
+      data.laptops_info.top_laptop_brands.forEach((element: {brand: string, count: number}) => {
+        this.laptopBrands.set(element.brand, element.count);
+      })
+      this.brandLabels = Array.from(this.laptopBrands.keys());
+      this.brandData = Array.from(this.laptopBrands.values());
+
+      data.laptops_info.top_laptop_processors.forEach((element: {processor: string, count: number}) => {
+        this.laptopProcessors.set(element.processor, element.count);
+      })
+      this.processorLabels = Array.from(this.laptopProcessors.keys());
+      this.processorData = Array.from(this.laptopProcessors.values())
 
       this.topWidgets[0].stats = this.inventoryCount;
       this.topWidgets[1].stats = this.laptopCount;

@@ -1,11 +1,10 @@
 import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartType, ChartConfiguration, ChartData } from 'chart.js';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-pie-graph',
-  imports: [BaseChartDirective, MatCardModule],
+  imports: [BaseChartDirective],
   templateUrl: './pie-graph.component.html',
   styleUrl: './pie-graph.component.scss'
 })
