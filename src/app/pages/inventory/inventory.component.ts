@@ -19,7 +19,15 @@ import { BarGraphComponent } from "../../charts/bar-graph/bar-graph.component";
 
 @Component({
   selector: 'app-inventory',
-  imports: [MatButtonModule, MatIconModule, TableComponent, MatCardModule, WidgetsComponent, CommonModule, PieGraphComponent, BarGraphComponent],
+  imports: [
+    MatButtonModule, 
+    MatIconModule, 
+    TableComponent,
+    MatCardModule,
+    WidgetsComponent,
+    CommonModule,
+    PieGraphComponent,
+    BarGraphComponent],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss'
 })
@@ -64,8 +72,7 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.loadData();
-    this.loadWidgetData();
+    this.loadInventoryData();
   }
 
   laptopsColumns: string[] = ['brand', 'model', 'serial', 'asset_tag', 'status', 'processor'];
@@ -78,49 +85,62 @@ export class InventoryComponent implements OnInit {
     { name: 'Misc Item', displayedColumns: this.miscItemColumns, dataSource: this.miscDataSource }
   ]
 
-  loadWidgetData(): void {
+  loadInventoryData(): void {
     this.inventoryService.getInventorySummaryData().subscribe((data) => {
-      this.inventoryCount = data.inventory_count.total_count;
-      this.laptopCount = data.inventory_count.computer_count.laptops;
-      this.desktopCount = data.inventory_count.computer_count.desktops;
+      this.updateWidgetData(data);
+      this.updateTableData(data);
 
-      data.laptops_summary.models.forEach((element: { model: string, count: number }) => {
-        this.laptopModels.set(element.model, element.count);
-      });
-      this.laptopLabels = Array.from(this.laptopModels.keys());
-      this.laptopData = Array.from(this.laptopModels.values());
-
-      data.laptops_summary.brands.forEach((element: {brand: string, count: number}) => {
-        this.laptopBrands.set(element.brand, element.count);
-      })
-      this.brandLabels = Array.from(this.laptopBrands.keys());
-      this.brandData = Array.from(this.laptopBrands.values());
-
-      data.laptops_summary.processors.forEach((element: {processor: string, count: number}) => {
-        this.laptopProcessors.set(element.processor, element.count);
-      })
-      this.processorLabels = Array.from(this.laptopProcessors.keys());
-      this.processorData = Array.from(this.laptopProcessors.values())
-
-      this.topWidgets[0].stats = this.inventoryCount;
-      this.topWidgets[1].stats = this.laptopCount;
-      this.topWidgets[2].stats = this.desktopCount;
+      this.isLoading = false;
     })
   }
 
-  loadData(): void {
-    this.inventoryService.getInventorySummaryData().subscribe((data) => {
+  updateTableData(data: any): void {
       this.desktops = data.inventory_data.desktops;
       this.desktopDataSource.data = this.desktops;
 
       this.laptops = data.inventory_data.laptops;
       this.laptopDataSource.data = this.laptops;
-      
+        
       this.miscItems = data.inventory_data.misc;
       this.miscDataSource.data = this.miscItems;
+  }
 
-        this.isLoading = false;
+  updateWidgetData(data:any): void {
+      this.inventoryCount = data.inventory_count.total_count;
+      this.laptopCount = data.inventory_count.computer_count.laptops;
+      this.desktopCount = data.inventory_count.computer_count.desktops;
+
+      this.updateLaptopModels(data.laptops_summary.models)
+      this.updateLaptopBrands(data.laptops_summary.brands)
+      this.updateLaptopProcessors(data.laptops_summary.processors)
+
+      this.topWidgets[0].stats = this.inventoryCount;
+      this.topWidgets[1].stats = this.laptopCount;
+      this.topWidgets[2].stats = this.desktopCount;
+  }
+
+  updateLaptopModels(models: {model: string, count: number}[]): void {
+    models.forEach((element) => {
+      this.laptopModels.set(element.model, element.count)
     })
+      this.laptopLabels = Array.from(this.laptopModels.keys());
+      this.laptopData = Array.from(this.laptopModels.values());
+  }
+
+  updateLaptopBrands(brands: {brand: string, count: number}[]): void {
+    brands.forEach((element) => {
+      this.laptopBrands.set(element.brand, element.count)
+    })
+      this.brandLabels = Array.from(this.laptopBrands.keys());
+      this.brandData = Array.from(this.laptopBrands.values());
+  }
+
+  updateLaptopProcessors(processors: {processor: string, count: number}[]): void {
+    processors.forEach((element) => {
+      this.laptopProcessors.set(element.processor, element.count)
+    })
+      this.processorLabels = Array.from(this.laptopProcessors.keys());
+      this.processorData = Array.from(this.laptopProcessors.values());
   }
 
   openFileImportDialog() {

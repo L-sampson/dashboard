@@ -24,18 +24,19 @@ button {
 
 .donor-table-activity {
     border: 3px solid rgb(0, 63, 92);
+    height: 572px;
+    width: auto;
     display: flex;
     gap: 10px;
-    // height: calc(67% - 150px);
     justify-content: space-between;
     padding-right: 5px;
-    .donor-table {
-        border: 3px solid red;
-        height: 100%;
-        width: calc(75% - 20px);
+    
+    app-table {
+        width: 1000px;
+        max-height: 572px;
     }
     .donor-activity {
         border: 3px solid purple;
-        width: calc(25% - 20px);
+        width: calc(25%);
     }
 }

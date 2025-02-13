@@ -5,11 +5,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { TopWidgets } from '../../interfaces/widgets';
 import { TabLink } from '../../interfaces/utils';
 import { MatTableDataSource } from '@angular/material/table';
-import { Donors, Organizations } from '../../interfaces/models';
+import { Contacts, Donations, Organizations } from '../../interfaces/models';
 import { TableComponent } from '../../components/table/table.component';
 import { DonorsService } from '../../services/donors.service';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
-import { forkJoin } from 'rxjs';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,7 +22,8 @@ export class DonorsComponent {
   orgCount: number | null = null;
   contactCount: number | null = null;
   donationCount: number | null = null;
-  contacts: Donors[] = [];
+  contacts: Contacts[] = [];
+  donations: Donations[] = [];
   organizations: Organizations[] = [];
   isLoading: boolean = true;
 
@@ -31,13 +31,13 @@ export class DonorsComponent {
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.loadWidgetData();
-    this.loadTableData();
+    this.loadDonorsData();
   }
 
   tableTitle = "Donors";
-  donorsDataSource = new MatTableDataSource<Donors>();
-  organizationsDataSource = new MatTableDataSource<Organizations>();
+  donorsDataSource = new MatTableDataSource<Contacts>();
+  donationsDataSource = new MatTableDataSource<Donations>();
+  orgDataSource = new MatTableDataSource<Organizations>();
 
   topWidgets: TopWidgets[] = [
     {header: 'Donor Partners', icon: 'handshake', stats: this.orgCount, title: 'Companies'},
@@ -48,40 +48,41 @@ export class DonorsComponent {
 
   donorsColumns : string[] = ['full_name', 'role', 'organization_name', 'org_abbreviation', 'phone_number', 'email'];
   dontaionColumns : string [] = ['organization_name', 'org_abbreviation', 'most_recent_donation_date', 'total_donations'];
+  organizationColumns: string [] = ['organization_name', 'org_abbreviation'];
 
   links: TabLink[] = [
-    {name: 'Organizations', displayedColumns: this.dontaionColumns, dataSource: this.organizationsDataSource},
-    {name: 'Contacts', displayedColumns: this.donorsColumns, dataSource: this.donorsDataSource}
+    {name: 'Donations', displayedColumns: this.dontaionColumns, dataSource: this.donationsDataSource},
+    {name: 'Contacts', displayedColumns: this.donorsColumns, dataSource: this.donorsDataSource},
+    {name: 'Organizations', displayedColumns: this.organizationColumns, dataSource: this.orgDataSource}
   ]
 
-  loadWidgetData(): void {
-    forkJoin({
-      orgs: this.donorService.getOrganizationsCount(),
-      contact_number: this.donorService.getContactsCount(),
-      donations: this.donorService.getDonationsCount()
-    }).subscribe(({orgs, contact_number, donations}) => {
-      this.orgCount = orgs.organizations_count;
-      this.contactCount = contact_number.contacts_count;
-      this.donationCount = donations.donations_count;
+  loadDonorsData(): void {
+    this.donorService.getDonorSummaryData().subscribe((data:any) => {
+      this.updateTableData(data);
+      this.updateWidgetData(data);
+    })
+    this.isLoading = false;
+  }
+
+  updateWidgetData(data: any): void {
+      this.orgCount = data.counts.orgs;
+      this.contactCount = data.counts.contacts;
+      this.donationCount = data.counts.donations;
 
        this.topWidgets[0].stats = this.orgCount;
        this.topWidgets[1].stats = this.contactCount;
        this.topWidgets[2].stats = this.donationCount;
-      this.isLoading = false;
-    });
   }
 
-  loadTableData(): void {
-   forkJoin({
-      contacts: this.donorService.fetchContacts(),
-      organizations: this.donorService.fetchOrganizations()
-   }).subscribe(({contacts, organizations}) => {
-      this.contacts = contacts;
-      this.organizations = organizations;
-      console.log(this.organizations)
+  updateTableData(data: any): void {
+    this.contacts = data.org_details.contacts;
       this.donorsDataSource.data = this.contacts;
-      this.organizationsDataSource.data = this.organizations;
-   });
+
+      this.donations = data.org_details.donations;
+      this.donationsDataSource.data = this.donations;
+
+      this.organizations = data.org_details.organizations;
+      this.orgDataSource.data = this.organizations;
   }
 
   openFileImportDialog() {

@@ -43,11 +43,11 @@ export class BarGraphComponent {
             data: this.data,
             label: 'Laptop Brands',
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
+          'rgba(99, 120, 255, 0.5)',
+          'rgba(255, 160, 64, 0.5)',
+          'rgba(255, 204, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(54, 163, 235, 0.5)',
         ],
           }
         ]

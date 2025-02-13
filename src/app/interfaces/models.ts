@@ -50,7 +50,7 @@ export interface Participants {
     workshop: string;
 }
 
-export interface Donors {
+export interface Contacts {
     full_name: string;
     role: string;
     organization_name: string;
@@ -59,16 +59,14 @@ export interface Donors {
     email: string;
 }
 
-export interface Organizations {
+export interface Donations {
     organization_name: string;
     org_abbreviation: string;
     most_recent_donation_date: string;
     total_donations: string;
 }
 
-export interface Donations {
-    company: string;
-    donation_date: Date;
-    total: number;
-
+export interface Organizations {
+    organization_name: string;
+    org_abbreviation: string;
 }

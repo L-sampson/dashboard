@@ -15,9 +15,3 @@ export class WidgetsComponent {
   @Input() title!: string;
 }
 
-// topWidgets: TopWidgets[] = [
-//     {header: 'Donor Partners', icon: 'handshake', stats: this.orgCount, title: 'Companies'},
-//     {header: 'Contacts', icon: 'groups', stats: 39, title: 'Contacts'},
-//     {header: 'Donations', icon: 'pallet', stats: 2, title: 'Donations Recieved'},
-//     {header: 'CODD Letters', icon: 'mail', stats: 3, title: 'Letters Sent'}
-//   ]
