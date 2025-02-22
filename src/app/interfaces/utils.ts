@@ -14,6 +14,7 @@ export interface FileMetaData<T = {}> {
 
 export interface InventoryMetaData {
     companyName: string;
+    companyAbrreviation: string;
     donationDate: Date | null;
 }
 

@@ -36,8 +36,30 @@
       <div class="file-form-grid" *ngIf="data?.title === 'Inventory' && isInventoryMetadata(file[1])">
         <mat-form-field appearance="outline">
           <mat-label>Company Name</mat-label>
-          <input matInput placeholder="Ex. Vestis" required [(ngModel)]="file[1].companyName" />
+          <input 
+            matInput 
+            placeholder="Ex. Southern Company" 
+            required 
+            [(ngModel)]="file[1].companyName" 
+            [matAutocomplete]="auto"
+            [formControl]="formControl" 
+            (ngModelChange)="updateCompanyAbb(file[0])"/>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let company of filteredCompanies | async" [value]="company.name">
+              {{company.name}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Company Abbreviation</mat-label>
+          <input 
+            matInput 
+            placeholder="Ex. SC" 
+            [(ngModel)]="file[1].companyAbrreviation" 
+            [disabled]="data.orgMap.has(file[1].companyName)"/>
+        </mat-form-field>
+
         <mat-form-field appearance="outline">
           <mat-label>Donation Date</mat-label>
           <input matInput [matDatepicker]="picker" required [(ngModel)]="file[1].donationDate" />
@@ -45,6 +67,7 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker" />
           <mat-datepicker #picker startView="year" [startAt]="startDate" />
         </mat-form-field>
+
         <mat-checkbox [disabled]="true">Donation Letter</mat-checkbox>
         <mat-checkbox [disabled]="true">CODD Letter</mat-checkbox>
       </div>
@@ -55,6 +78,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button (click)="uploadFiles(data.title)" mat-dialog-close>Upload</button>
+  <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

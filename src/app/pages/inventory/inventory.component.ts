@@ -6,7 +6,7 @@ import { TopWidgets } from '../../interfaces/widgets';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { TabLink } from '../../interfaces/utils';
-import { Laptop, Desktop, Misc } from '../../interfaces/models';
+import { Laptop, Desktop, Misc, Organizations } from '../../interfaces/models';
 import { InventoryService } from '../../services/inventory.service';
 import { WidgetsComponent } from '../../components/widgets/widgets.component';
 import { FileUploadDialogComponent } from '../../components/file-upload-dialog/file-upload-dialog.component';
@@ -35,6 +35,7 @@ export class InventoryComponent implements OnInit {
   laptops: Laptop[] = [];
   desktops: Desktop[] = [];
   miscItems: Misc[] = [];
+  orgs: Organizations[] = [];
   inventoryCount: number | null = null;
   laptopCount: number | null = null;
   desktopCount: number | null = null;
@@ -43,6 +44,7 @@ export class InventoryComponent implements OnInit {
   laptopModels: Map<string, number> = new Map();
   laptopBrands: Map<string, number> = new Map();
   laptopProcessors: Map<string, number> = new Map();
+  org_map: Map<string, string> = new Map();
 
   laptopLabels: string[] = [];
   laptopData: number[] = [];
@@ -87,6 +89,8 @@ export class InventoryComponent implements OnInit {
 
   loadInventoryData(): void {
     this.inventoryService.getInventorySummaryData().subscribe((data) => {
+      this.orgs = data.organizations;
+      this.updateOrgs(data.organizations);
       this.updateWidgetData(data);
       this.updateTableData(data);
 
@@ -143,11 +147,22 @@ export class InventoryComponent implements OnInit {
       this.processorData = Array.from(this.laptopProcessors.values());
   }
 
+  updateOrgs(organizations: {organization_name: string, org_abbreviation: string}[]): void {
+    organizations.forEach((element) => {
+        this.org_map.set(element.organization_name, element.org_abbreviation);
+      });
+      console.log(this.org_map);
+  }
+
   openFileImportDialog() {
     this.dialog.open(FileUploadDialogComponent, {
-      width: '500px',
+      minWidth: '512px',
+      maxWidth: '704px',
       maxHeight: '1000px',
-      data: { title: this.tableTitle }
+      data: { 
+        title: this.tableTitle,
+        orgMap: this.org_map
+      }
     })
   }
 
